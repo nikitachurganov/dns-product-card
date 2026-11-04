@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.npm-cache/
+.qa/
+*.log
+.cursor/
+.claude/
+scratch*.cjs
+

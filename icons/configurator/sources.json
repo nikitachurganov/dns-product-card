@@ -1,0 +1,38 @@
+{
+  "audio": {
+    "node": "8372:277",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-277"
+  },
+  "cpu": {
+    "node": "8372:281",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-281"
+  },
+  "motherboard": {
+    "node": "8372:291",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-291"
+  },
+  "cooler": {
+    "node": "8372:279",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-279"
+  },
+  "add-more": {
+    "node": "8372:275",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-275"
+  },
+  "hdd": {
+    "node": "8372:285",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-285"
+  },
+  "gpu": {
+    "node": "8372:283",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-283"
+  },
+  "ram": {
+    "node": "8372:305",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-305"
+  },
+  "pc": {
+    "node": "8372:299",
+    "source": "https://www.figma.com/design/KUBXumELWAZ8CpuxwT3Fay/Icons?node-id=8372-299"
+  }
+}
