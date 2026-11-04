@@ -1,0 +1,55 @@
+/* The breadcrumbs package owns typography, spacing and overflow. Its v3 icon
+   font is loaded separately from the v2 icons used by the rest of this page. */
+.mobile-back,.mobile-header-actions,.mobile-product-name,.mobile-purchase,.mobile-favorite,.mobile-brand-code{display:none!important}
+
+/* DNS product-card__sm-max starts at 991px; desktop starts at 992px. */
+@media(max-width:991.98px){
+ body{padding-bottom:76px}
+ .page-width{width:calc(100% - 24px);max-width:none}
+ .site-header{background:var(--background-secondary);box-shadow:var(--effect-divider-bottom)}
+ .site-header>.page-width{width:calc(100% - 32px)}
+ .topbar,.brand-block,.header-actions{display:none}
+ .main-header{display:flex;flex-wrap:nowrap;height:60px;gap:8px;padding:10px 0}
+ .main-header .mobile-back{display:flex!important;flex:0 0 36px}
+ .main-header .header-search{order:0;flex:1;min-width:0}
+ .main-header .header-search input{height:36px!important;min-height:36px!important;font-size:14px!important}
+ .main-header .mobile-header-actions{display:flex!important;gap:8px}
+ .mobile-header-actions>button,.mobile-header-actions>a{width:36px;min-width:36px;height:36px}
+ .product-heading{padding:12px 4px 0}
+ .product-heading>nav{padding:4px 0;margin-bottom:12px}
+ .product-heading .title-row{display:none}
+ .product-number{display:none}
+ .product-card{background:transparent;box-shadow:none;border-radius:0;padding:0;margin-bottom:16px}
+ .product-top{display:flex;flex-direction:column;gap:0}
+ .product-card .gallery{height:300px;width:100%;max-width:none;margin:0;background:var(--background-secondary);border-radius:16px;padding:0 36px}
+ .gallery .main-photo{height:300px;background:transparent}
+ .gallery .main-photo>img{width:auto;height:auto;max-width:100%;max-height:300px;object-fit:contain}
+ .gallery .thumbnails{top:12px;left:12px;bottom:auto;gap:0}
+ .gallery .thumbnails>button:not(.video-thumb){display:none}
+ .gallery .thumbnails .video-thumb{width:36px;height:36px;border-radius:8px}
+ .gallery .bronze-badge{right:12px;top:12px;transform:none}
+ .gallery .product-code{display:none!important}
+ .product-info{display:flex;flex-direction:column;padding:0}
+ .mobile-product-name{display:block!important;order:0;font-size:16px;line-height:24px;font-weight:400;margin:16px 0 8px}
+ .product-info .product-badges{order:1;display:grid;grid-template-columns:max-content max-content max-content;justify-content:start;overflow-x:auto;gap:16px 4px;margin:0;padding:0 0 16px;scrollbar-width:none;font-size:14px}
+ .product-badges>*{flex-shrink:0;background:var(--background-secondary);box-shadow:var(--effect-plate);border-radius:12px;min-height:36px;padding:8px}
+ .product-badges .compare-control{grid-column:1;grid-row:1;width:max-content}
+ .product-badges .mobile-favorite{display:flex!important;grid-column:2 / 4;grid-row:1;width:max-content;min-height:36px;height:36px}
+ .product-badges .chip{grid-row:2;min-height:58px;display:flex;flex-wrap:wrap;align-content:center;justify-content:flex-start;max-width:160px;gap:4px}
+ .product-badges .rating-count{flex-basis:100%}
+ .product-badges .divider,.product-badges .share-button{display:none}
+ .product-info .specification-summary{display:none}
+ .specification-summary p{font-size:14px}
+ .product-info .purchase-row{display:none}
+ .mobile-brand-code{display:flex!important;order:2;justify-content:space-between;align-items:center;min-height:58px;padding:16px 12px;background:var(--background-secondary);border-radius:16px;font-size:14px;color:var(--text-tertiary)}
+ .mobile-brand-code>img{width:100px;height:auto}
+ .product-info .availability{order:3;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:16px 0 0;padding:0 0 16px;scrollbar-width:none}
+ .product-info .availability>a{flex:0 0 auto}
+ .product-card .customer-photos{margin:16px 0 0;gap:8px}
+ .product-card .customer-photos>button{width:64px;height:64px}
+ .mobile-purchase{display:flex!important;align-items:center;gap:8px;position:fixed;bottom:0;left:0;right:0;padding:8px 12px;background:var(--background-secondary);box-shadow:var(--effect-bottom-navigation);z-index:20}
+ .mobile-purchase>strong{margin-right:auto;font-size:20px}
+ .mobile-purchase>button:last-child{min-width:140px}
+ .configurator{padding:20px 16px}
+ .ready-builds{overflow-x:clip}
+}

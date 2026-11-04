@@ -1,0 +1,7 @@
+@font-face{font-family:'PT Sans';font-weight:400;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/normal/pt-sans-cyrillic.woff2') format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:'PT Sans';font-weight:700;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/bold/pt-sans-cyrillic.woff2') format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:'PT Sans';font-weight:400;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/normal/pt-sans-latin.woff2') format('woff2');unicode-range:U+0000-007F}
+@font-face{font-family:'PT Sans';font-weight:700;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/bold/pt-sans-latin.woff2') format('woff2');unicode-range:U+0000-007F}
+@font-face{font-family:'PT Sans';font-weight:400;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/normal/pt-sans-currency.woff2') format('woff2');unicode-range:U+20BD,U+20B8}
+@font-face{font-family:'PT Sans';font-weight:700;font-style:normal;font-display:swap;src:url('../../node_modules/@dns-modules/font-pt-sans/fonts/bold/pt-sans-currency.woff2') format('woff2');unicode-range:U+20BD,U+20B8}
+@font-face{font-family:i-icon;font-weight:400;font-style:normal;font-display:block;src:url('@dns-modules/font-icon/fonts/icon.woff2') format('woff2')}

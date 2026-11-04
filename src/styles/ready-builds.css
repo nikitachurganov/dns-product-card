@@ -1,0 +1,60 @@
+/* Widgets / productSlider: desktop card 196, photo 160, gap 28, hover 220. */
+.ready-builds{padding:32px;position:relative;overflow:visible;isolation:isolate}
+.builds-heading{display:flex;align-items:baseline;justify-content:space-between;gap:24px}
+.builds-heading>h2{font-size:24px;line-height:1.3}
+.assemble-pc-tag{flex-shrink:0;white-space:nowrap}
+.assemble-pc-tag [class*="_base-icon_"]{font-size:inherit;width:auto;height:auto}
+.build-carousel{position:relative;z-index:2;height:241px;margin-top:32px;clip-path:inset(-32px -24px -200px)}
+.ready-builds .builds-rail{display:flex;align-items:flex-start;gap:28px;position:relative;left:-20px;top:-20px;width:calc(100% + 64px);height:437px;margin:-12px;padding:32px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding-inline:32px;pointer-events:none;z-index:2}
+/* Extra scrollport padding leaves room for the 12px hover panel and its shadow.
+   Relative offsets compensate for that padding, keeping the cards in place. */
+.ready-builds .build-card{position:relative;flex:0 0 196px;width:196px;min-width:196px;height:241px;display:block;scroll-snap-align:start;scroll-margin-left:12px;pointer-events:auto}
+.build-card-shell{position:relative;display:flex;flex-direction:column;gap:12px;width:196px;background:var(--background-secondary);border-radius:16px}
+.ready-builds .build-image{width:160px;height:160px;padding:0;margin-inline:auto;flex-shrink:0;overflow:visible;border-radius:0}
+.ready-builds .build-image>img{width:160px;height:160px;object-fit:contain;transform:none;transition:none}
+.ready-builds .gaming-badge{width:40px;height:40px;left:-18px;top:0}
+.ready-builds .gaming-badge [class*="_base-icon_"]{font-size:28px;width:28px;height:28px}
+.build-info{display:flex;flex-direction:column;gap:8px;width:100%;min-width:0}
+.ready-builds .build-price{display:block;font-size:16px;line-height:1.3;margin:0;font-weight:700}
+.ready-builds .build-title{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;font-size:14px!important;line-height:1.3!important;max-height:36.4px;height:36.4px;min-height:36.4px;color:var(--text-secondary);width:100%;overflow:hidden!important;text-overflow:ellipsis;white-space:normal!important;word-break:normal}
+/* BaseLink has an inner text wrapper. The clamp must apply to that actual text node. */
+.ready-builds .build-title>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;max-height:36.4px;white-space:normal;text-overflow:ellipsis}
+.ready-builds .build-title:hover{color:var(--text-brand)}
+.build-hover-actions{display:none;flex-direction:column;gap:12px;width:100%}
+.build-social{display:flex;gap:4px;align-items:center;height:32px}
+.build-compare,.build-rating{display:flex;align-items:center;justify-content:center;gap:4px;background:var(--background-primary);border-radius:8px;padding:6px;height:32px;min-width:0;font-size:14px;white-space:nowrap;cursor:pointer}
+.build-compare{flex:1}.build-rating{flex:1;color:var(--text-secondary);font-size:14px}
+.build-rating [class*="_base-icon_"]{font-size:16px;width:16px;height:16px;color:var(--background-brand-main)}
+.rating-divider{display:block;width:1px;height:16px;background:var(--icon-primary)}
+.saved-build{padding-top:24px;margin-top:24px;border-top:1px solid var(--stroke-border-light)}
+.build-purchase{display:flex;gap:4px;align-items:stretch}.build-purchase>button:first-child{flex:1;min-width:0;height:44px}.build-purchase>button:last-child{flex:0 0 44px;width:44px;height:44px}
+.build-purchase>button:last-child [class*="_base-icon_"]{color:var(--icon-primary);font-size:20px}
+.build-purchase>button:last-child[aria-pressed=true] [class*="_base-icon_"]{color:var(--text-brand)}
+.ready-builds .all-builds{height:64px;margin-top:32px;position:relative;font-size:18px!important;z-index:0}
+.build-arrow{position:absolute!important;top:50%;transform:translateY(-50%);width:44px!important;height:44px!important;min-width:44px!important;border-radius:50%!important;background:var(--background-secondary-surface)!important;border:0!important;box-shadow:var(--effect-plate-floating);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s,visibility .15s;z-index:4}
+.build-arrow-prev{left:-16px}.build-arrow-next{right:-16px}.build-arrow [class*="_base-icon_"]{font-size:20px;color:var(--icon-primary)}
+.build-carousel:hover .build-arrow:not(:disabled),.build-carousel:focus-within .build-arrow:not(:disabled){opacity:1;visibility:visible;pointer-events:auto}
+.build-carousel.is-expanded{height:auto;clip-path:none}.ready-builds .builds-rail.expanded{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));left:0;top:0;width:calc(100% + 24px);height:auto;overflow:visible;gap:32px 28px;margin-bottom:0;padding:12px 12px 0;pointer-events:auto}
+.ready-builds .expanded .build-card{min-width:196px;display:block;width:196px;justify-self:center}
+@media(hover:hover) and (pointer:fine){
+ .build-card:hover,.build-card:focus-within{z-index:3}
+ .build-card:hover .build-card-shell,.build-card:focus-within .build-card-shell{width:220px;padding:12px;margin:-12px;box-shadow:var(--effect-plate-floating)}
+ .build-card:hover .build-hover-actions,.build-card:focus-within .build-hover-actions{display:flex}
+ .expanded .build-card:hover{z-index:4}
+}
+@media(max-width:760px){
+ .ready-builds{padding:20px 16px}.builds-heading{gap:12px;flex-wrap:wrap}.builds-heading>h2{font-size:22px}.build-carousel{height:181px;margin-top:24px;clip-path:inset(-32px -8px -200px)}
+ .ready-builds .builds-rail{gap:16px;height:377px}
+ .ready-builds .build-card{width:126px;min-width:126px;flex-basis:126px;height:181px}
+ .build-card-shell{width:126px;gap:16px}.ready-builds .build-image,.ready-builds .build-image>img{width:100px;height:100px}
+ .ready-builds .gaming-badge{width:32px;height:32px;left:-13px}.ready-builds .gaming-badge [class*="_base-icon_"]{font-size:22px;width:22px;height:22px}
+ .build-info{gap:4px}.ready-builds .all-builds{height:44px;font-size:16px!important;margin-top:24px}
+ .build-arrow-prev{left:-8px}.build-arrow-next{right:-8px}
+ .ready-builds .builds-rail.expanded{grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:24px 16px}
+ .ready-builds .expanded .build-card{min-width:126px;width:126px;display:block}
+}
+@media(max-width:760px) and (hover:hover) and (pointer:fine){
+ .build-card:hover .build-card-shell,.build-card:focus-within .build-card-shell{width:150px}
+ .build-social{height:auto;flex-wrap:wrap}.build-compare,.build-rating{font-size:12px}
+}
+@media(hover:none){.ready-builds .builds-rail{left:0;top:0;width:calc(100% + 24px);height:calc(100% + 24px);padding:12px;scroll-padding-inline:12px}.build-card:focus-within .build-hover-actions{display:none}}

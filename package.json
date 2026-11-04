@@ -1,0 +1,37 @@
+{
+  "name": "dns-product-card",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@dns-modules/alert": "^2.1.2",
+    "@dns-modules/badge": "2.0.3",
+    "@dns-modules/base-filter": "^2.1.0",
+    "@dns-modules/base-link": "2.0.2",
+    "@dns-modules/base-ui-button": "5.0.4",
+    "@dns-modules/base-ui-input-search": "5.0.2603171442",
+    "@dns-modules/base-ui-tabs": "^4.1.1",
+    "@dns-modules/bottom-sheet": "1.2.1",
+    "@dns-modules/breadcrumbs": "2.0.4",
+    "@dns-modules/checkbox": "1.0.2602121650",
+    "@dns-modules/expansion": "^1.0.3",
+    "@dns-modules/font-icon": "2.0.2511261004",
+    "@dns-modules/font-icon-v3": "npm:@dns-modules/font-icon@^3.1.0",
+    "@dns-modules/font-pt-sans": "1.0.1",
+    "@dns-modules/rating": "^2.0.2",
+    "@dns-modules/select-inline": "^2.0.2",
+    "@dns-modules/tag": "^1.0.2",
+    "vue": "3.4.27",
+    "vue-i18n": "^11.1.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "sass": "^1.77.4",
+    "vite": "^7.2.4"
+  }
+}

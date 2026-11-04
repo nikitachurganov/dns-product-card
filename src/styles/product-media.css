@@ -1,0 +1,14 @@
+/* Configurator icons: requested rendered size, with original SVG exports retained. */
+.configurator .part-tile{height:108px}
+.configurator .part-tile:not(.current-part){padding:12px 16px;gap:8px;justify-content:center}
+.configurator .part-tile>.part-icon{width:36px;height:36px;margin:0}
+.configurator .part-icon>img{display:block;width:36px;height:36px}
+.configurator .parts-next{top:36px}
+
+/* Product Card / Media 30598:59718: 80px preview, 8px corners, 32px indicator. */
+.product-card .customer-photos{gap:12px}
+.product-card .customer-photos>button{width:80px;height:80px;border-radius:8px}
+.product-card .customer-play{position:absolute;left:50%;top:50%;right:auto;bottom:auto;width:32px;height:32px;transform:translate(-50%,-50%);display:block;background:none;pointer-events:none}
+.video-indicator-asset{position:absolute;top:-18.6656px;left:-42.6656px;width:120px;height:122.667px;display:block}
+.product-card .customer-photos .video-indicator-asset>img{display:block;width:120px;height:122.667px;max-width:none;object-fit:contain;border-radius:0}
+

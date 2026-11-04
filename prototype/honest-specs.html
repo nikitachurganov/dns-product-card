@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Честные характеристики — варианты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --text-primary:#333;--text-secondary:#4e4e4e;--text-tertiary:#7d7c7c;--text-disabled:#bbb;
+  --bg-page:#f7f7f7;--bg-card:#fff;--stroke:#eeeeee;--stroke-dot:#d2d1d1;
+  --ok:#00be70;--ok-dark:#007847;--ok-bg:#ebffed;
+  --warn:#9d7600;--warn-bg:#fff7da;
+  --err:#d20017;--err-bg:#fff0ee;
+  --link:#007de3;--brand:#fc8507;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font:14px/20px "PT Sans",Arial,sans-serif}
+.page{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:28px;line-height:34px;margin:0 0 8px}
+.lead{color:var(--text-secondary);max-width:760px;margin:0 0 24px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 32px;padding:12px 16px;background:var(--bg-card);border-radius:8px;font-size:13px;color:var(--text-secondary)}
+.variant{margin-bottom:48px}
+.variant h2{font-size:20px;line-height:26px;margin:0 0 4px}
+.variant .desc{color:var(--text-secondary);margin:0 0 12px;max-width:820px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.tag{font-size:12px;line-height:16px;padding:2px 8px;border-radius:10px;background:var(--ok-bg);color:var(--ok-dark)}
+.tag.minus{background:var(--warn-bg);color:var(--warn)}
+.frames{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.fwrap .cap{font-size:12px;color:var(--text-tertiary);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em}
+.fwrap.d{flex:1 1 640px;max-width:760px}
+.fwrap.m{flex:0 0 360px;max-width:100%}
+.frame{container-type:inline-size;background:var(--bg-card);border:1px solid var(--stroke);border-radius:8px;padding:16px 20px 12px}
+.fwrap.m .frame{padding:16px}
+.frame h3{font-size:18px;line-height:24px;margin:0 0 8px}
+
+/* сетка характеристик */
+.grid{columns:2;column-gap:40px}
+.grid>div>*{break-inside:avoid}
+@container (max-width:520px){.grid{columns:1}}
+.row{display:flex;align-items:baseline;gap:8px;padding:5px 0;min-height:30px}
+.l{flex:1;display:flex;align-items:baseline;gap:6px;color:var(--text-tertiary)}
+.l::after{content:"";flex:1;min-width:12px;border-bottom:1px dotted var(--stroke-dot);transform:translateY(-3px)}
+.v{flex:0 0 auto;max-width:48%;text-align:left;color:var(--text-primary);display:flex;align-items:center;gap:6px}
+.v.link{color:var(--link)}
+.muted{color:var(--text-tertiary)}
+.strong{font-weight:700}
+
+/* щит «проверено в DNS» */
+.sh{position:relative;display:inline-flex;width:18px;height:18px;flex:0 0 18px;cursor:help;outline:none}
+.sh svg{width:18px;height:18px}
+.sh[data-tip]:hover::after,.sh[data-tip]:focus::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);right:-8px;white-space:nowrap;background:#333;color:#fff;font-size:12px;line-height:16px;padding:5px 8px;border-radius:4px;z-index:5}
+
+/* чипы отклонений */
+.chip{font-size:12px;line-height:16px;font-weight:700;padding:1px 6px;border-radius:4px;white-space:nowrap}
+.chip.up{background:var(--ok-bg);color:var(--ok-dark)}
+.chip.down{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--err-bg);color:var(--err)}
+.chip.ok{background:var(--ok-bg);color:var(--ok-dark);font-weight:400}
+
+/* ===== Вариант A: сгруппированная пара ===== */
+.pair{margin:3px 0;padding:2px 10px;background:var(--ok-bg);border-left:3px solid var(--ok);border-radius:0 6px 6px 0}
+.pair .row{padding:3px 0;min-height:26px}
+.pair .row.ver .l{color:var(--ok-dark)}
+.pair .row.ver .l::after{border-color:#9fe0bd}
+.pair .row.ver .v{font-weight:700;color:var(--text-primary)}
+.pair .row.decl{color:var(--text-tertiary)}
+.pair .row.decl .v{color:var(--text-tertiary)}
+
+/* ===== Вариант B: колонки ===== */
+.colhead{display:grid;grid-template-columns:1fr 92px 200px;gap:8px;padding:0 0 4px;font-size:12px;color:var(--text-tertiary);border-bottom:1px solid var(--stroke);margin-bottom:2px}
+.colhead span:nth-child(3){color:var(--ok-dark);font-weight:700;display:flex;gap:4px;align-items:center}
+.brow{display:grid;grid-template-columns:1fr 92px 200px;gap:8px;align-items:baseline;padding:5px 0;min-height:30px}
+.brow .c-d{color:var(--text-tertiary);white-space:nowrap}
+.brow .c-v{display:flex;gap:6px;align-items:center;background:var(--ok-bg);margin:-3px 0;padding:3px 8px;border-radius:6px;font-weight:700;white-space:nowrap}
+.brow .c-v.empty{background:none}
+@container (max-width:520px){
+  .colhead{display:none}
+  .brow{grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);row-gap:2px}
+  .brow.same .c-v{grid-column:1/-1}
+  .brow .l{grid-column:1/-1}
+  .brow .c-d,.brow .c-v{position:relative;padding-top:15px}
+  .brow .c-d::before,.brow .c-v::before{position:absolute;top:0;left:0;font-size:11px;line-height:13px;font-weight:400;color:var(--text-tertiary)}
+  .brow .c-d::before{content:"Заявлено"}
+  .brow .c-v::before{content:"Проверено в DNS";left:8px;color:var(--ok-dark)}
+  .brow .c-v{margin:0;padding-top:17px;padding-bottom:4px}
+  .brow .c-d.na{display:none}
+  .brow.single{grid-template-columns:1fr}
+  .brow.single .c-d{grid-column:auto!important;padding-top:0}
+  .brow.single .c-d::before{content:none}
+}
+
+/* ===== Вариант C: значение в строке ===== */
+.crow{display:flex;align-items:flex-start;gap:8px;padding:5px 0;min-height:30px}
+.crow .cv{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:1px;text-align:right}
+.crow .cv .main{display:flex;gap:6px;align-items:center;font-weight:700}
+.crow .cv .sub{font-size:12px;line-height:16px;color:var(--text-tertiary);display:flex;gap:6px;align-items:center}
+@container (min-width:521px){
+  .crow .cv{align-items:flex-end}
+}
+
+/* ===== Вариант D: переключатель ===== */
+.seg{display:inline-flex;background:rgba(0,0,0,.04);border-radius:8px;padding:2px;margin:0 0 10px;max-width:100%}
+.seg button{font:inherit;font-size:13px;border:0;background:none;color:var(--text-secondary);padding:5px 12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.seg button[aria-pressed=true]{background:#fff;box-shadow:0 0 10px rgba(0,0,0,.12);color:var(--text-primary);font-weight:700}
+.seg button.dns[aria-pressed=true]{color:var(--ok-dark)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:0 0 8px;align-self:center}
+.dot.diff{background:var(--brand)}
+.note{font-size:12px;color:var(--text-tertiary);margin:8px 0 0;display:flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="shield" viewBox="0 0 18 18">
+    <path d="M9 1.2 15.2 3.4v4.6c0 3.9-2.6 6.9-6.2 8.8C5.4 14.9 2.8 11.9 2.8 8V3.4L9 1.2Z" fill="#00be70"/>
+    <path d="m5.9 8.9 2.2 2.2 4-4.3" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="shield-bad" viewBox="0 0 18 18">
+    <path d="M9 1.2 15.2 3.4v4.6c0 3.9-2.6 6.9-6.2 8.8C5.4 14.9 2.8 11.9 2.8 8V3.4L9 1.2Z" fill="#ff544b"/>
+    <path d="m6.2 6.2 5.6 5.6m0-5.6-5.6 5.6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="page">
+  <h1>Честные характеристики: варианты отображения</h1>
+  <p class="lead">Четыре подхода для блока «Основные характеристики». Каждый показан в десктопной и мобильной ширине — вёрстка одна и та же, переключается по ширине блока. Данные — утюг из задачи, плюс два нечисловых примера: подтверждённый («Паровой удар») и не подтверждённый («Вертикальное отпаривание»).</p>
+  <div class="legend">
+    <span><svg width="14" height="14" style="vertical-align:-2px"><use href="#shield"/></svg> проверено в DNS</span>
+    <span><span class="chip up">+32 г/мин</span> фактически лучше заявленного</span>
+    <span><span class="chip down">−28 Вт</span> фактически хуже заявленного</span>
+    <span><span class="chip bad">не подтвердилось</span> нечисловая характеристика не прошла проверку</span>
+    <span>Совпало с заявленным — значение не дублируем, только значок</span>
+  </div>
+  <div id="root"></div>
+</div>
+
+<script>
+const SPECS = [
+  {n:'Мощность', u:'Вт', d:1600, v:1572},
+  {n:'Материал подошвы', t:'антипригарное покрытие', link:true},
+  {n:'Объём резервуара для воды', u:'мл', d:200, v:180},
+  {n:'Постоянная подача пара', u:'г/мин', d:15, v:24},
+  {n:'Паровой удар', t:'есть', vt:'есть'},
+  {n:'Скорость парового удара', u:'г/мин', d:40, v:72},
+  {n:'Вертикальное отпаривание', t:'есть', vt:'нет'},
+  {n:'Функция самоочистки от накипи', t:'есть', vt:'есть'},
+  {n:'Время нагрева', u:'сек', v:31},
+];
+
+const SH = (bad) => `<span class="sh" tabindex="0" data-tip="${bad?'Не подтверждено в лаборатории DNS':'Проверено в лаборатории DNS'}"><svg><use href="#${bad?'shield-bad':'shield'}"/></svg></span>`;
+const num = (x,u) => `${x} ${u}`;
+
+function norm(s){
+  const numeric = s.u !== undefined;
+  const decl = numeric ? (s.d!==undefined ? num(s.d,s.u) : null) : (s.t ?? null);
+  const ver  = numeric ? (s.v!==undefined ? num(s.v,s.u) : null) : (s.vt ?? null);
+  let status = 'none', chip = '';
+  if (ver !== null){
+    if (decl === null) status = 'only';
+    else if (decl === ver) status = 'same';
+    else status = 'diff';
+  }
+  if (status==='diff'){
+    if (numeric){
+      const dl = s.v - s.d;
+      chip = `<span class="chip ${dl>0?'up':'down'}">${dl>0?'+':'−'}${Math.abs(dl)} ${s.u}</span>`;
+    } else chip = `<span class="chip bad">не подтвердилось</span>`;
+  }
+  const bad = status==='diff' && !numeric;
+  return {...s, decl, ver, status, chip, bad, numeric};
+}
+const DATA = SPECS.map(norm);
+
+/* ---------- A: сгруппированная пара ---------- */
+function renderA(){
+  const rows = DATA.map(s=>{
+    if (s.status==='none') return `<div class="row"><div class="l">${s.n}</div><div class="v ${s.link?'link':''}">${s.decl}</div></div>`;
+    if (s.status==='same') return `<div class="row"><div class="l">${s.n}</div><div class="v">${s.ver}${SH()}</div></div>`;
+    if (s.status==='only') return `<div class="pair"><div class="row ver"><div class="l">${s.n}, проверено в DNS</div><div class="v">${SH()}${s.ver}</div></div></div>`;
+    return `<div class="pair">
+      <div class="row decl"><div class="l">${s.n}, заявлено</div><div class="v">${s.decl}</div></div>
+      <div class="row ver"><div class="l">Проверено в DNS</div><div class="v">${SH(s.bad)}${s.ver}${s.chip}</div></div>
+    </div>`;
+  }).join('');
+  return `<h3>Основные характеристики</h3><div class="grid"><div>${rows}</div></div>`;
+}
+
+/* ---------- B: две колонки ---------- */
+function renderB(){
+  const head = `<div class="colhead"><span></span><span>Заявлено</span><span><svg width="14" height="14"><use href="#shield"/></svg>Проверено в DNS</span></div>`;
+  const rows = DATA.map(s=>{
+    if (s.status==='none') return `<div class="brow single"><div class="l">${s.n}</div><div class="c-d" style="grid-column:2/-1;${s.link?'color:var(--link)':''}">${s.decl}</div></div>`;
+    if (s.status==='same') return `<div class="brow same"><div class="l">${s.n}</div><div class="c-d na">${s.decl}</div><div class="c-v">${SH()}${s.ver}<span class="chip ok">совпало</span></div></div>`;
+    if (s.status==='only') return `<div class="brow"><div class="l">${s.n}</div><div class="c-d na">—</div><div class="c-v">${SH()}${s.ver}</div></div>`;
+    return `<div class="brow"><div class="l">${s.n}</div><div class="c-d">${s.decl}</div><div class="c-v">${SH(s.bad)}${s.ver}${s.chip}</div></div>`;
+  }).join('');
+  return `<h3>Основные характеристики</h3>${head}<div>${rows}</div>`;
+}
+
+/* ---------- C: значение со сравнением в строке ---------- */
+function renderC(){
+  const rows = DATA.map(s=>{
+    if (s.status==='none') return `<div class="row"><div class="l">${s.n}</div><div class="v ${s.link?'link':''}">${s.decl}</div></div>`;
+    if (s.status==='same' || s.status==='only') return `<div class="row"><div class="l">${s.n}</div><div class="v strong">${SH()}${s.ver}</div></div>`;
+    return `<div class="crow"><div class="l">${s.n}</div>
+      <div class="cv"><div class="main">${SH(s.bad)}${s.ver}${s.chip}</div>
+      <div class="sub">заявлено <s>${s.decl}</s></div></div></div>`;
+  }).join('');
+  return `<h3>Основные характеристики</h3><div class="grid"><div>${rows}</div></div>`;
+}
+
+/* ---------- D: переключатель ---------- */
+let modeD = {};
+function renderD(id){
+  const m = modeD[id] || 'dns';
+  const rows = DATA.map(s=>{
+    if (s.status==='none') return `<div class="row"><div class="l">${s.n}</div><div class="v ${s.link?'link':''}">${s.decl}</div></div>`;
+    if (m==='dns'){
+      const mark = s.status==='diff' ? s.chip : '';
+      return `<div class="row"><div class="l">${s.n}</div><div class="v ${s.status==='diff'?'strong':''}">${SH(s.bad)}${s.ver}${mark}</div></div>`;
+    }
+    if (s.status==='only') return `<div class="row"><div class="l">${s.n}</div><div class="v muted">не заявлено</div></div>`;
+    return `<div class="row"><div class="l">${s.n}</div><div class="v">${s.decl}${s.status==='diff'?'<span class="dot diff" title="В DNS получилось иначе"></span>':''}</div></div>`;
+  }).join('');
+  const note = m==='dns'
+    ? `<div class="note"><svg width="14" height="14"><use href="#shield"/></svg>Показаны значения, измеренные в лаборатории DNS</div>`
+    : `<div class="note"><span class="dot diff"></span>Значение отличается от проверенного — переключитесь на «Проверено в DNS»</div>`;
+  return `<h3>Основные характеристики</h3>
+    <div class="seg" role="group" aria-label="Источник значений">
+      <button class="dns" data-m="dns" aria-pressed="${m==='dns'}"><svg width="14" height="14"><use href="#shield"/></svg>Проверено в DNS</button>
+      <button data-m="decl" aria-pressed="${m==='decl'}">Заявлено</button>
+    </div>
+    <div class="grid"><div>${rows}</div></div>${note}`;
+}
+
+const VARIANTS = [
+  {key:'A', title:'A. Сгруппированная пара', render:renderA,
+   desc:'Остаётся привычная структура «заявлено / проверено в DNS», но две строки собираются в одну зелёную плашку с акцентом на проверенное значение и чипом отклонения. Различие видно сразу, не нужно сравнивать глазами две отдалённые строки.',
+   plus:['минимум изменений к текущей вёрстке','работает на мобильном как есть','чип отклонения'],
+   minus:['блок вырастает на 1 строку за каждую проверенную характеристику']},
+  {key:'B', title:'B. Две колонки «Заявлено | Проверено в DNS»', render:renderB,
+   desc:'Заголовки колонок один раз вверху блока, дальше значения стоят друг против друга. На мобильном каждая строка превращается в пару подписанных мини-ячеек. Лучший вариант для прямого сравнения.',
+   plus:['сравнение в одну строку без роста высоты на десктопе','подписи колонок не повторяются'],
+   minus:['на мобильном строка двухэтажная','нужна одна колонка вместо двух в сетке характеристик']},
+  {key:'C', title:'C. Проверенное значение + заявленное мелким', render:renderC,
+   desc:'В строке показывается только фактическое значение со щитом и чипом; заявленное — серым зачёркнутым под ним. Нечисловые характеристики получают такой же щит.',
+   plus:['самый компактный','единая запись для числовых и нечисловых','нет дублирования названия'],
+   minus:['заявленное значение второстепенно','строка с подстрокой']},
+  {key:'D', title:'D. Переключатель «Проверено в DNS / Заявлено»', render:null,
+   desc:'Над блоком — сегментный переключатель. По умолчанию показаны проверенные значения. Режим «Заявлено» показывает данные производителя и оранжевой точкой помечает строки, где факт отличается.',
+   plus:['объём блока не меняется','единый список на десктопе и мобильном'],
+   minus:['различие не видно без переключения — слабее по требованию 3','нужен дополнительный клик']},
+];
+
+const root = document.getElementById('root');
+root.innerHTML = VARIANTS.map(v=>`
+  <section class="variant" id="v${v.key}">
+    <h2>${v.title}</h2>
+    <p class="desc">${v.desc}</p>
+    <div class="tags">${v.plus.map(t=>`<span class="tag">+ ${t}</span>`).join('')}${v.minus.map(t=>`<span class="tag minus">− ${t}</span>`).join('')}</div>
+    <div class="frames">
+      <div class="fwrap d"><p class="cap">Десктоп</p><div class="frame" data-v="${v.key}" data-id="${v.key}d"></div></div>
+      <div class="fwrap m"><p class="cap">Мобильная · 360</p><div class="frame" data-v="${v.key}" data-id="${v.key}m"></div></div>
+    </div>
+  </section>`).join('');
+
+function paint(frame){
+  const k = frame.dataset.v, id = frame.dataset.id;
+  const v = VARIANTS.find(x=>x.key===k);
+  frame.innerHTML = k==='D' ? renderD(id) : v.render();
+}
+document.querySelectorAll('.frame').forEach(paint);
+root.addEventListener('click', e=>{
+  const b = e.target.closest('.seg button');
+  if(!b) return;
+  const f = b.closest('.frame');
+  modeD[f.dataset.id] = b.dataset.m;
+  paint(f);
+});
+</script>
+</body>
+</html>
