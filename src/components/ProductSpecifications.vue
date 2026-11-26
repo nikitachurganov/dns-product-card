@@ -17,6 +17,9 @@ import { BottomSheet } from '@dns-modules/bottom-sheet'
 import '@dns-modules/bottom-sheet/style.css'
 import { productUrl } from '../data'
 import VerifiedTag from './VerifiedTag.vue'
+import SpecInfoIcon from './SpecInfoIcon.vue'
+import SpecsVariantSwitch from './SpecsVariantSwitch.vue'
+import { specsVariant } from '../specsVariant'
 
 const characteristicsUrl = productUrl.replace('/product/', '/product/characteristics/')
 const filesUrl = 'https://www.dns-shop.ru/product/driver/5117a7c5fa5fd763/blok-pitania-deepcool-pf750-r-pf750d-ha0b-eu-cernyj/'
@@ -141,13 +144,42 @@ const closeModal = () => { activeModal.value = null }
 const sheet = ref(null)
 const verifiedModal = ref(null)
 
-const openVerifiedDetails = (label, value, verified, diffText = '', sign = 'minus') => {
+const openDetails = details => {
   if (isMobile.value) {
-    sheet.value = { label, value, verified, diffText, sign }
+    sheet.value = details
   } else {
-    verifiedModal.value = { label, value, verified, diffText, sign }
+    verifiedModal.value = details
   }
 }
+const openVerifiedDetails = (label, value, verified, diffText = '', sign = 'minus') => {
+  openDetails({ label, value, verified, diffText, sign })
+}
+
+// Вариант «Иконка в инфо»: пояснения к характеристикам для шторки/модалки
+const hints = {
+  'Мощность': 'Максимальная мощность, которую блок питания может длительно отдавать всем компонентам компьютера. В лаборатории DNS измеряется под нагрузкой на стенде.',
+  'Мощность (номинал)': 'Максимальная мощность, которую блок питания может длительно отдавать всем компонентам компьютера. В лаборатории DNS измеряется под нагрузкой на стенде.',
+  'Длина кабеля питания': 'Длина кабеля основного разъема 20+4 pin от корпуса блока питания до коннектора. Важна для прокладки кабелей в больших корпусах.',
+  'Длина основного кабеля питания': 'Длина кабеля основного разъема 20+4 pin от корпуса блока питания до коннектора. Важна для прокладки кабелей в больших корпусах.',
+  'Разъемы для питания видеокарты (PCI-E)': 'Разъемы для подключения дополнительного питания видеокарты. Количество и тип разъемов определяют, какие видеокарты можно подключить без переходников.',
+  'Количество разъемов 15-pin SATA': 'Разъемы для питания накопителей SATA (SSD, HDD) и некоторых аксессуаров: вентиляторов, подсветки, контроллеров.',
+  'Срок эксплуатации': 'Период, в течение которого производитель гарантирует безопасную работу устройства при соблюдении условий эксплуатации.',
+  'Страна-производитель': 'Страна, в которой изготовлено устройство. Может отличаться от страны, где зарегистрирован бренд.',
+}
+const rowHint = row => hints[row.label] || row.modal?.text || ''
+
+// Иконка у названия в варианте «Иконка в инфо»: желтый треугольник / зеленая ⓘ / серая ⓘ
+const infoIconState = row => {
+  const result = verdict(row.value, row.verified)
+  if (!result) return row.info ? 'info' : null
+  return result.same ? 'matched' : 'warning'
+}
+const openSpecDetails = row => openDetails({
+  label: row.label,
+  hint: rowHint(row),
+  value: row.value,
+  verified: row.verified,
+})
 
 const mobileQuery = window.matchMedia('(max-width:991.98px)')
 const isMobile = ref(mobileQuery.matches)
@@ -181,7 +213,12 @@ onUnmounted(() => {
 // - sign: 'minus' (ухудшение, например -8 Вт или пассивный APFC вместо активного) -> желтый треугольник ⚠️
 // Разбивка названия: всё, кроме последнего слова / последнее слово (к нему приклеивается иконка ⓘ)
 // (граница слова — пробел или дефис, чтобы «Страна-производитель» тоже переносилось)
-const labelSplit = label => Math.max(label.lastIndexOf(' '), label.lastIndexOf('-')) + 1
+// (по дефису — только если после него длинное слово, чтобы «(PCI-E)» не рвалось)
+const labelSplit = label => {
+  const space = label.lastIndexOf(' ')
+  const hyphen = label.lastIndexOf('-')
+  return (hyphen > space && label.length - hyphen > 4 ? hyphen : space) + 1
+}
 const labelHead = label => label.slice(0, labelSplit(label))
 const labelTail = label => label.slice(labelSplit(label))
 
@@ -302,8 +339,10 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         <dl v-for="(column, index) in summaryColumns" :key="index">
           <div v-for="row in column" :key="row.label" class="specification-row">
             <dt>
+              <!-- Вариант «Иконка в инфо»: иконка проверки DNS заменяет ⓘ и открывает шторку с пояснением -->
+              <span v-if="specsVariant === 'info' && infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
               <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
-              <span v-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+              <span v-else-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
               <span v-else>{{ row.label }}</span>
               <i aria-hidden="true" />
             </dt>
@@ -333,7 +372,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                   </span>
                   <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
                   <VerifiedTag
-                    v-if="verdict(row.value, row.verified)"
+                    v-if="verdict(row.value, row.verified) && specsVariant !== 'info'"
                     class="spec-verified-tag"
                     :label="row.label"
                     :declared="row.value"
@@ -366,8 +405,10 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
             <dl v-for="(column, index) in group.columns" :key="index">
               <div v-for="row in column" :key="row.label" class="specification-row">
                 <dt>
+                  <!-- Вариант «Иконка в инфо»: иконка проверки DNS заменяет ⓘ и открывает шторку с пояснением -->
+                  <span v-if="specsVariant === 'info' && infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
                   <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
-                  <span v-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+                  <span v-else-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
                   <span v-else>{{ row.label }}</span>
                   <i aria-hidden="true" />
                 </dt>
@@ -397,7 +438,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                       </span>
                       <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
                       <VerifiedTag
-                        v-if="verdict(row.value, row.verified)"
+                        v-if="verdict(row.value, row.verified) && specsVariant !== 'info'"
                         class="spec-verified-tag"
                         :label="row.label"
                         :declared="row.value"
@@ -471,7 +512,8 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
           </div>
 
           <div class="spec-modal-body">
-            <dl class="verified-modal-values">
+            <p v-if="verifiedModal.hint" class="verified-hint">{{ verifiedModal.hint }}</p>
+            <dl v-if="verifiedModal.verified" class="verified-modal-values">
               <div class="verified-modal-col">
                 <dt>Заявлено производителем</dt>
                 <dd>{{ verifiedModal.value }}</dd>
@@ -494,7 +536,8 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         </div>
       </template>
 
-      <dl class="verified-sheet-values">
+      <p v-if="sheet.hint" class="verified-hint verified-sheet-hint">{{ sheet.hint }}</p>
+      <dl v-if="sheet.verified" class="verified-sheet-values">
         <div>
           <dt>Заявлено производителем</dt>
           <dd>{{ sheet.value }}</dd>
@@ -505,6 +548,11 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         </div>
       </dl>
     </BottomSheet>
+
+    <!-- Плавающий переключатель вариантов прототипа (ссылка на вариант: ?specs=info) -->
+    <Teleport to="body">
+      <SpecsVariantSwitch />
+    </Teleport>
   </section>
 </template>
 
@@ -989,6 +1037,18 @@ dd {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary, #1d1d1d);
+}
+
+/* Пояснение к характеристике (вариант «Иконка в инфо») */
+.verified-hint {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+.verified-sheet-hint {
+  padding: 0 16px;
+  margin: 8px 0 4px;
 }
 
 /* Нижняя шторка деталей лабораторной проверки DNS (дизайн-система) */
