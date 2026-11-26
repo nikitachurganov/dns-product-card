@@ -179,6 +179,12 @@ onUnmounted(() => {
 // Анализ совпадения фактического значения с заявленным:
 // - sign: 'plus' (улучшение, например +50 мм длины кабеля) -> иконка инфо ⓘ
 // - sign: 'minus' (ухудшение, например -8 Вт или пассивный APFC вместо активного) -> желтый треугольник ⚠️
+// Разбивка названия: всё, кроме последнего слова / последнее слово (к нему приклеивается иконка ⓘ)
+// (граница слова — пробел или дефис, чтобы «Страна-производитель» тоже переносилось)
+const labelSplit = label => Math.max(label.lastIndexOf(' '), label.lastIndexOf('-')) + 1
+const labelHead = label => label.slice(0, labelSplit(label))
+const labelTail = label => label.slice(labelSplit(label))
+
 const verdict = (value, verified) => {
   if (!verified) return null
   if (verified === value) return { same: true }
@@ -293,8 +299,9 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         <dl v-for="(column, index) in summaryColumns" :key="index">
           <div v-for="row in column" :key="row.label" class="specification-row">
             <dt>
-              <span>{{ row.label }}</span>
-              <IconCircleInfo v-if="row.info" :title="row.label" aria-hidden="true" />
+              <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
+              <span v-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+              <span v-else>{{ row.label }}</span>
               <i aria-hidden="true" />
             </dt>
             <dd>
@@ -357,8 +364,9 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
             <dl v-for="(column, index) in group.columns" :key="index">
               <div v-for="row in column" :key="row.label" class="specification-row">
                 <dt>
-                  <span>{{ row.label }}</span>
-                  <IconCircleInfo v-if="row.info" :title="row.label" aria-hidden="true" />
+                  <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
+                  <span v-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+                  <span v-else>{{ row.label }}</span>
                   <i aria-hidden="true" />
                 </dt>
                 <dd>
@@ -769,11 +777,18 @@ dt > i {
   border-bottom: 1px solid var(--stroke-border-light);
   transform: translateY(-3px);
 }
-dt > [class*="_base-icon_"] {
-  font-size: 16px;
-  color: var(--icon-primary);
-  align-self: flex-start;
-  margin-top: 3px;
+.spec-label-tail {
+  white-space: nowrap;
+}
+/* Размер и цвет как у воронки фильтра и иконки расхождения: 20px, text-tertiary */
+.spec-label-tail > [class*="_base-icon_"] {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  font-size: 20px;
+  color: var(--text-tertiary);
+  vertical-align: -4px;
 }
 dd {
   margin: 0;
@@ -983,7 +998,7 @@ dd {
 
 /* Нижняя шторка деталей лабораторной проверки DNS (дизайн-система) */
 .verified-sheet-header {
-  padding: 4px 0 8px;
+  padding: 4px 16px 8px;
 }
 .verified-sheet-header h3 {
   font-size: 18px;
@@ -1002,7 +1017,7 @@ dd {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  padding: 0;
+  padding: 0 16px;
 }
 .verified-sheet-values > div {
   padding: 12px 14px;
