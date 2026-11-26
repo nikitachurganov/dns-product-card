@@ -299,7 +299,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
             </dt>
             <dd>
               <div class="spec-dd-wrap">
-                <!-- Строка 1: [воронка?] [фактическое значение] [иконка ⚠️ / ⓘ с ховером] -->
+                <!-- Строка 1: [воронка?] [заявленное значение] [иконка ⚠️ / ⓘ с ховером] -->
                 <div class="spec-value-line">
                   <a
                     v-if="row.filter"
@@ -316,36 +316,32 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                     class="spec-modal-link"
                     @click.prevent="openModal(row.modal)"
                   >
-                    {{ row.verified || row.value }}
+                    {{ row.value }}
                   </a>
                   <span v-else class="spec-text-value">
-                    {{ row.verified || row.value }}
+                    {{ row.value }}
                   </span>
-
-                  <!-- Иконка расхождения: желтый треугольник (ховер открывает тултип, клик открывает модалку на десктопе / шторку на мобилке) -->
+                  <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
                   <VerifiedTag
-                    v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
+                    v-if="verdict(row.value, row.verified)"
+                    class="spec-verified-tag"
                     :label="row.label"
                     :declared="row.value"
                     :verified="row.verified"
-                    :diff-text="verdict(row.value, row.verified).diffText"
-                    :sign="verdict(row.value, row.verified).sign"
+                    :matched="verdict(row.value, row.verified).same"
                     :mobile="isMobile"
                     @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
                   />
+                  <span v-if="verdict(row.value, row.verified)?.same" class="spec-verified-note">(проверено в DNS)</span>
+
                 </div>
 
-                <!-- Строка 2: заявленное значение -->
+                <!-- Строка 2 (при расхождении): значение, проверенное в DNS -->
                 <div
                   v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
-                  class="spec-declared-line is-clickable"
-                  role="button"
-                  tabindex="0"
-                  @click="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                  @keydown.enter="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                  @keydown.space.prevent="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
+                  class="spec-declared-line"
                 >
-                  заявлено {{ row.value }}
+                  {{ row.verified }} (проверено в DNS)
                 </div>
               </div>
             </dd>
@@ -367,7 +363,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                 </dt>
                 <dd>
                   <div class="spec-dd-wrap">
-                    <!-- Строка 1: [воронка?] [фактическое значение] [иконка ⚠️ / ⓘ с ховером] -->
+                    <!-- Строка 1: [воронка?] [заявленное значение] [иконка ⚠️ / ⓘ с ховером] -->
                     <div class="spec-value-line">
                       <a
                         v-if="row.filter"
@@ -384,36 +380,32 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                         class="spec-modal-link"
                         @click.prevent="openModal(row.modal)"
                       >
-                        {{ row.verified || row.value }}
+                        {{ row.value }}
                       </a>
                       <span v-else class="spec-text-value">
-                        {{ row.verified || row.value }}
+                        {{ row.value }}
                       </span>
-
-                      <!-- Иконка расхождения: желтый треугольник (ховер открывает тултип, клик открывает модалку на десктопе / шторку на мобилке) -->
+                      <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
                       <VerifiedTag
-                        v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
+                        v-if="verdict(row.value, row.verified)"
+                        class="spec-verified-tag"
                         :label="row.label"
                         :declared="row.value"
                         :verified="row.verified"
-                        :diff-text="verdict(row.value, row.verified).diffText"
-                        :sign="verdict(row.value, row.verified).sign"
+                        :matched="verdict(row.value, row.verified).same"
                         :mobile="isMobile"
                         @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
                       />
+                      <span v-if="verdict(row.value, row.verified)?.same" class="spec-verified-note">(проверено в DNS)</span>
+
                     </div>
 
-                    <!-- Строка 2: заявленное значение -->
+                    <!-- Строка 2 (при расхождении): значение, проверенное в DNS -->
                     <div
                       v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
-                      class="spec-declared-line is-clickable"
-                      role="button"
-                      tabindex="0"
-                      @click="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                      @keydown.enter="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                      @keydown.space.prevent="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
+                      class="spec-declared-line"
                     >
-                      заявлено {{ row.value }}
+                      {{ row.verified }} (проверено в DNS)
                     </div>
                   </div>
                 </dd>
@@ -800,8 +792,9 @@ dd {
 }
 .spec-value-line {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 6px;
+  gap: 0 6px;
   line-height: 1.4;
   min-width: 0;
 }
@@ -843,6 +836,13 @@ dd {
 .spec-text-value {
   color: var(--text-primary);
 }
+.spec-verified-note {
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.spec-verified-tag {
+  margin-top: 1px;
+}
 
 /* Вторая строка: заявленное значение */
 .spec-declared-line {
@@ -850,14 +850,6 @@ dd {
   line-height: 1.35;
   color: var(--text-tertiary);
   margin-top: 2px;
-}
-.spec-declared-line[role="button"] {
-  cursor: pointer;
-}
-.spec-declared-line[role="button"]:hover {
-  color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-style: dashed;
 }
 
 /* Модальное окно термина / глоссария */

@@ -8,6 +8,7 @@ defineProps({
   verified: { type: String, default: '' },
   diffText: { type: String, default: '' },
   mobile: { type: Boolean, default: false },
+  matched: { type: Boolean, default: false },
 })
 defineEmits(['open'])
 </script>
@@ -16,18 +17,23 @@ defineEmits(['open'])
   <button
     v-if="mobile"
     type="button"
-    class="verified-icon-btn is-warning"
+    :class="['verified-icon-btn', matched ? 'is-matched' : 'is-warning']"
     aria-label="Проверено в лаборатории DNS"
     @click="$emit('open')"
   >
-    <svg class="verified-icon is-warning" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M7.134 1.5a1 1 0 0 1 1.732 0l6.062 10.5A1 1 0 0 1 14.062 13.5H1.938a1 1 0 0 1-.866-1.5L7.134 1.5z" fill="#f59e0b"/>
-      <path d="M8 5.5v3.5M8 11.25v.25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <svg v-if="matched" class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="7" fill="#2e9e4f"/>
+      <path d="M5 8.2l2 2 4-4.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg v-else class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="6.25" stroke="#c98a2b" stroke-width="1.5"/>
+      <path d="M8 5v3.5" stroke="#c98a2b" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="8" cy="10.9" r="0.9" fill="#c98a2b"/>
     </svg>
   </button>
   <BaseUiTooltip v-else tag="span" position="top" class="verified-tooltip-trigger">
     <span
-      class="verified-icon-btn is-warning"
+      :class="['verified-icon-btn', matched ? 'is-matched' : 'is-warning']"
       role="button"
       tabindex="0"
       aria-label="Проверено в лаборатории DNS"
@@ -35,14 +41,19 @@ defineEmits(['open'])
       @keydown.enter="$emit('open')"
       @keydown.space.prevent="$emit('open')"
     >
-      <svg class="verified-icon is-warning" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M7.134 1.5a1 1 0 0 1 1.732 0l6.062 10.5A1 1 0 0 1 14.062 13.5H1.938a1 1 0 0 1-.866-1.5L7.134 1.5z" fill="#f59e0b"/>
-        <path d="M8 5.5v3.5M8 11.25v.25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+      <svg v-if="matched" class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="7" fill="#2e9e4f"/>
+        <path d="M5 8.2l2 2 4-4.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg v-else class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="6.25" stroke="#c98a2b" stroke-width="1.5"/>
+        <path d="M8 5v3.5" stroke="#c98a2b" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="8" cy="10.9" r="0.9" fill="#c98a2b"/>
       </svg>
     </span>
     <template #content>
       <div class="verified-tooltip-simple">
-        Проверено в лаборатории DNS
+        {{ matched ? 'Совпадает с заявленным — проверено в лаборатории DNS' : 'Не совпадает с заявленным — проверено в лаборатории DNS' }}
       </div>
     </template>
   </BaseUiTooltip>
@@ -62,7 +73,7 @@ defineEmits(['open'])
   width: 20px;
   height: 20px;
   padding: 0;
-  margin: 1px 0 0 6px;
+  margin: 0;
   border: none;
   background: none;
   cursor: pointer;
@@ -76,11 +87,6 @@ defineEmits(['open'])
 }
 .verified-icon {
   flex-shrink: 0;
-  display: block;
-}
-.verified-icon.is-warning {
-  width: 20px;
-  height: 20px;
   display: block;
 }
 .verified-tooltip-simple {

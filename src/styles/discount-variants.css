@@ -1,0 +1,402 @@
+/* Доступные варианты товара / Варианты уценки по макету Figma 31481:83730 */
+
+.figma-multi-parameter {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Название параметра 1-го уровня (над табами) */
+.figma-param-title {
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--text-secondary, #4e4e4e);
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* Табы 1-го уровня: «Новый» / «Уцененный» */
+.figma-tabs-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.figma-tab-btn {
+  height: 36px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--stroke-border, #d2d1d1);
+  background: var(--background-secondary, #ffffff);
+  color: var(--text-secondary, #4e4e4e);
+  font-size: 16px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'PT Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+.figma-tab-btn:hover {
+  background: var(--background-primary, #f7f7f7);
+  border-color: var(--stroke-border-hover, #a7a5a5);
+}
+
+.figma-tab-btn.is-active {
+  border: 1px solid #434242;
+  font-weight: 400;
+  color: var(--text-primary, #333333);
+  background: var(--background-secondary, #ffffff);
+}
+
+/* Название параметра 2-го уровня («Варианты уценки») */
+.figma-variants-title {
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--text-secondary, #4e4e4e);
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* Контейнер чипов уценки */
+.figma-variants-frame {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Чип варианта уценки по макету 31481:83730: высота 36px, скругление 8px, без радио-кружка */
+.figma-variant-chip {
+  height: 36px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--background-secondary, #ffffff);
+  border: 1px solid var(--stroke-border, #d2d1d1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.figma-variant-chip:hover {
+  background: var(--background-primary, #f7f7f7);
+  border-color: var(--stroke-border, #d2d1d1);
+}
+
+.figma-variant-chip.is-active {
+  background: #ffffff;
+  border: 1px solid #434242;
+}
+
+.figma-variant-chip.is-active:hover {
+  border-color: #434242;
+}
+
+/* Цена внутри чипа: жирный 16px #333333 */
+.figma-variant-price {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary, #333333);
+  font-family: 'PT Sans', sans-serif;
+  white-space: nowrap;
+}
+
+/* Состояние внутри чипа: обычный 14px #7d7c7c */
+.figma-variant-condition {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-tertiary, #7d7c7c);
+  font-family: 'PT Sans', sans-serif;
+  white-space: nowrap;
+}
+
+/* Ссылка «Посмотреть все (N)» под табами */
+.figma-variants-all {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+}
+
+/* Список всех вариантов */
+.figma-variants-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--effects-overlay-modal-dark, rgba(0, 0, 0, 0.4));
+}
+
+.figma-variants-modal {
+  width: 480px;
+  max-width: calc(100vw - 32px);
+  max-height: min(640px, calc(100vh - 64px));
+  display: flex;
+  flex-direction: column;
+  background: var(--background-secondary, #ffffff);
+  color: var(--text-primary, #333333);
+  border-radius: 16px;
+  font-family: 'PT Sans', sans-serif;
+  overflow: hidden;
+}
+
+.figma-variants-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+}
+
+.figma-variants-modal-head h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.figma-variants-modal-head h3 span {
+  color: var(--text-tertiary, #7d7c7c);
+  font-weight: 400;
+}
+
+.figma-variants-modal-close {
+  display: inline-flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--icon-primary, #a7a5a5);
+  cursor: pointer;
+}
+
+.figma-variants-modal-close:hover {
+  background: var(--background-primary, #f7f7f7);
+}
+
+.figma-variants-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 20px 12px;
+}
+
+.figma-variants-filter-chip {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--stroke-border, #d2d1d1);
+  border-radius: 8px;
+  background: var(--background-secondary, #ffffff);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.figma-variants-filter-chip.is-active {
+  border-color: #434242;
+}
+
+.figma-variants-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+.figma-variants-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--stroke-border-light, #eeeeee);
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.figma-variants-row:hover {
+  background: var(--background-primary, #f7f7f7);
+}
+
+.figma-variants-row.is-active {
+  box-shadow: inset 3px 0 0 var(--stroke-border-brand, #fc8507);
+  background: var(--background-brand-light, #fff5e9);
+}
+
+.figma-variants-row-price {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.figma-variants-row-condition {
+  font-size: 14px;
+}
+
+.figma-variants-row-warranty {
+  font-size: 14px;
+  color: var(--text-tertiary, #7d7c7c);
+}
+
+@media (max-width: 991.98px) {
+  .figma-variants-overlay {
+    align-items: flex-end;
+  }
+
+  .figma-variants-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .figma-variants-modal-head {
+    padding: 16px 16px 12px;
+  }
+
+  .figma-variants-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 16px 12px;
+  }
+
+  .figma-variants-filter-chip {
+    flex: 0 0 auto;
+  }
+
+  .figma-variants-list {
+    padding: 0 8px 16px;
+  }
+}
+
+/* ------------------------------------------------------------- */
+/* Текстовый блок описания уценки (Frame 1171275098 в макете)    */
+/* ------------------------------------------------------------- */
+
+.figma-discount-desc-block {
+  background: var(--background-primary, #f7f7f7);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.figma-discount-desc-text {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--text-secondary, #4e4e4e);
+}
+
+.figma-discount-desc-text p {
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  color: var(--text-secondary, #4e4e4e);
+}
+
+.figma-discount-desc-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Нижняя плашка с логотипом бренда и кодом товара (скрыта на ПК) */
+.figma-discount-footer {
+  display: none !important;
+}
+
+.figma-brand-logo {
+  height: 20px;
+  max-width: 90px;
+  object-fit: contain;
+}
+
+.figma-product-code {
+  font-size: 13px;
+  color: var(--text-tertiary, #8c8c8c);
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* ------------------------------------------------------------- */
+/* Адаптивность для мобильных устройств (до 992px)               */
+/* ------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+  .figma-multi-parameter {
+    background: var(--background-secondary, #ffffff);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--effect-plate);
+    margin-top: 12px;
+  }
+
+  .figma-param-title {
+    margin-bottom: 10px;
+  }
+
+  .figma-tabs-group {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Табы обнимают контент (Hug), а не растягиваются на 100% */
+  .figma-tab-btn {
+    flex: 0 0 auto;
+    width: auto;
+    text-align: left;
+    height: 36px;
+    padding: 8px 12px;
+  }
+
+  .figma-variants-title {
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+  .figma-variants-frame {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Чипы вариантов также обнимают контент (Hug) */
+  .figma-variant-chip {
+    flex: 0 0 auto;
+    width: auto;
+    height: 36px;
+    padding: 8px 12px;
+  }
+
+  .figma-discount-desc-block {
+    margin-top: 12px;
+    padding: 14px 16px;
+  }
+
+  .figma-discount-footer {
+    display: flex !important;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--stroke-border-light, #f0f0f0);
+    align-items: center;
+    justify-content: space-between;
+  }
+}

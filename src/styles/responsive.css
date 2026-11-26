@@ -1,55 +1,452 @@
-/* The breadcrumbs package owns typography, spacing and overflow. Its v3 icon
-   font is loaded separately from the v2 icons used by the rest of this page. */
-.mobile-back,.mobile-header-actions,.mobile-product-name,.mobile-purchase,.mobile-favorite,.mobile-brand-code{display:none!important}
+/* Мобильные классы по умолчанию скрыты на десктопе */
+.mobile-back,
+.mobile-header-actions,
+.mobile-breadcrumbs,
+.mobile-product-name,
+.mobile-purchase,
+.mobile-favorite,
+.mobile-brand-code,
+.mobile-actions-row,
+.mobile-reviews-card,
+.mobile-gallery-controls,
+.mobile-availability-card,
+.mobile-description-card {
+  display: none !important;
+}
 
-/* DNS product-card__sm-max starts at 991px; desktop starts at 992px. */
-@media(max-width:991.98px){
- body{padding-bottom:76px}
- .page-width{width:calc(100% - 24px);max-width:none}
- .site-header{background:var(--background-secondary);box-shadow:var(--effect-divider-bottom)}
- .site-header>.page-width{width:calc(100% - 32px)}
- .topbar,.brand-block,.header-actions{display:none}
- .main-header{display:flex;flex-wrap:nowrap;height:60px;gap:8px;padding:10px 0}
- .main-header .mobile-back{display:flex!important;flex:0 0 36px}
- .main-header .header-search{order:0;flex:1;min-width:0}
- .main-header .header-search input{height:36px!important;min-height:36px!important;font-size:14px!important}
- .main-header .mobile-header-actions{display:flex!important;gap:8px}
- .mobile-header-actions>button,.mobile-header-actions>a{width:36px;min-width:36px;height:36px}
- .product-heading{padding:12px 4px 0}
- .product-heading>nav{padding:4px 0;margin-bottom:12px}
- .product-heading .title-row{display:none}
- .product-number{display:none}
- .product-card{background:transparent;box-shadow:none;border-radius:0;padding:0;margin-bottom:16px}
- .product-top{display:flex;flex-direction:column;gap:0}
- .product-card .gallery{height:300px;width:100%;max-width:none;margin:0;background:var(--background-secondary);border-radius:16px;padding:0 36px}
- .gallery .main-photo{height:300px;background:transparent}
- .gallery .main-photo>img{width:auto;height:auto;max-width:100%;max-height:300px;object-fit:contain}
- .gallery .thumbnails{top:12px;left:12px;bottom:auto;gap:0}
- .gallery .thumbnails>button:not(.video-thumb){display:none}
- .gallery .thumbnails .video-thumb{width:36px;height:36px;border-radius:8px}
- .gallery .bronze-badge{right:12px;top:12px;transform:none}
- .gallery .product-code{display:none!important}
- .product-info{display:flex;flex-direction:column;padding:0}
- .mobile-product-name{display:block!important;order:0;font-size:16px;line-height:24px;font-weight:400;margin:16px 0 8px}
- .product-info .product-badges{order:1;display:grid;grid-template-columns:max-content max-content max-content;justify-content:start;overflow-x:auto;gap:16px 4px;margin:0;padding:0 0 16px;scrollbar-width:none;font-size:14px}
- .product-badges>*{flex-shrink:0;background:var(--background-secondary);box-shadow:var(--effect-plate);border-radius:12px;min-height:36px;padding:8px}
- .product-badges .compare-control{grid-column:1;grid-row:1;width:max-content}
- .product-badges .mobile-favorite{display:flex!important;grid-column:2 / 4;grid-row:1;width:max-content;min-height:36px;height:36px}
- .product-badges .chip{grid-row:2;min-height:58px;display:flex;flex-wrap:wrap;align-content:center;justify-content:flex-start;max-width:160px;gap:4px}
- .product-badges .rating-count{flex-basis:100%}
- .product-badges .divider,.product-badges .share-button{display:none}
- .product-info .specification-summary{display:none}
- .specification-summary p{font-size:14px}
- .product-info .purchase-row{display:none}
- .mobile-brand-code{display:flex!important;order:2;justify-content:space-between;align-items:center;min-height:58px;padding:16px 12px;background:var(--background-secondary);border-radius:16px;font-size:14px;color:var(--text-tertiary)}
- .mobile-brand-code>img{width:100px;height:auto}
- .product-info .availability{order:3;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:16px 0 0;padding:0 0 16px;scrollbar-width:none}
- .product-info .availability>a{flex:0 0 auto}
- .product-card .customer-photos{margin:16px 0 0;gap:8px}
- .product-card .customer-photos>button{width:64px;height:64px}
- .mobile-purchase{display:flex!important;align-items:center;gap:8px;position:fixed;bottom:0;left:0;right:0;padding:8px 12px;background:var(--background-secondary);box-shadow:var(--effect-bottom-navigation);z-index:20}
- .mobile-purchase>strong{margin-right:auto;font-size:20px}
- .mobile-purchase>button:last-child{min-width:140px}
- .configurator{padding:20px 16px}
- .ready-builds{overflow-x:clip}
+/* Мобильная версия карточки товара DNS (как на проде: max-width 991.98px) */
+@media (max-width: 991.98px) {
+  body {
+    padding-bottom: 76px;
+    background: var(--background-primary, #f4f5f7);
+  }
+
+  .page-width {
+    width: calc(100% - 24px);
+    max-width: none;
+  }
+
+  /* Шапка на мобильном */
+  .site-header {
+    background: var(--background-secondary, #ffffff);
+    box-shadow: var(--effect-divider-bottom);
+  }
+  .site-header > .page-width {
+    width: calc(100% - 24px);
+  }
+  .topbar,
+  .brand-block,
+  .header-actions {
+    display: none !important;
+  }
+  .main-header {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 56px;
+    gap: 8px;
+    padding: 8px 0;
+    align-items: center;
+  }
+  .main-header .mobile-back {
+    display: flex !important;
+    flex: 0 0 36px;
+  }
+  .main-header .header-search {
+    order: 0;
+    flex: 1;
+    min-width: 0;
+  }
+  .main-header .header-search input {
+    height: 38px !important;
+    min-height: 38px !important;
+    font-size: 14px !important;
+  }
+  .main-header .mobile-header-actions {
+    display: flex !important;
+    gap: 8px;
+  }
+  .mobile-header-actions > button,
+  .mobile-header-actions > a {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+  }
+
+  /* Хлебные крошки */
+  .desktop-breadcrumbs {
+    display: none !important;
+  }
+  .mobile-breadcrumbs {
+    display: block !important;
+  }
+  .product-heading {
+    padding: 10px 0 0;
+  }
+  .product-heading > nav {
+    padding: 2px 0;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .product-heading .title-row,
+  .product-number {
+    display: none !important;
+  }
+
+  /* Карточка товара на мобильном раскладывается на отдельные блоки */
+  .product-card {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 12px;
+  }
+  .product-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Блок галереи фото на мобильном */
+  .product-card .gallery {
+    height: auto;
+    min-height: 320px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    background: var(--background-secondary, #ffffff);
+    border-radius: 16px;
+    box-shadow: var(--effect-plate);
+    padding: 16px 16px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery .main-photo {
+    height: 220px;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery .main-photo > img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 210px;
+    object-fit: contain;
+  }
+  .gallery .thumbnails {
+    top: 14px;
+    left: 14px;
+    bottom: auto;
+    position: absolute;
+    display: block;
+  }
+  .gallery .thumbnails > button:not(.video-thumb) {
+    display: none !important;
+  }
+  .gallery .thumbnails .video-thumb {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #0071bc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery .bronze-badge {
+    display: none !important;
+  }
+
+  /* Точки пагинации и многоточие под фото (как на проде) */
+  .mobile-gallery-controls {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 12px;
+  }
+  .mobile-gallery-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .mobile-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d2d1d1;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .mobile-dot.active {
+    background: #333333;
+    width: 7px;
+    height: 7px;
+  }
+  .mobile-gallery-more {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #8c8c8c;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+
+  /* Ссылка «Код товара» по центру под точками (как на проде) */
+  .mobile-code-link {
+    display: block !important;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 13px !important;
+    color: var(--text-link, #0071bc) !important;
+    position: static !important;
+    font-family: 'PT Sans', sans-serif;
+    text-decoration: none;
+  }
+
+  /* Контейнер информации */
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  /* Название товара под галереей */
+  .mobile-product-name {
+    display: block !important;
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
+    margin: 16px 0 10px;
+    color: var(--text-primary, #333333);
+  }
+
+  /* Быстрые действия: Сравнить и В избранное */
+  .mobile-actions-row {
+    display: flex !important;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+  .mobile-actions-row .compare-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-primary, #333333);
+    cursor: pointer;
+    user-select: none;
+  }
+  .mobile-action-favorite {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    color: var(--text-primary, #333333);
+    font-family: 'PT Sans', sans-serif;
+    cursor: pointer;
+  }
+  .mobile-action-favorite.is-active {
+    color: var(--text-brand, #fc8507);
+  }
+
+  /* Карточка отзывов и вопросов (как на проде) */
+  .mobile-reviews-card {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    background: var(--background-secondary, #ffffff);
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: var(--effect-plate);
+    margin-bottom: 12px;
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--text-primary, #333333);
+  }
+  .mobile-review-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .mobile-review-rating-block {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    gap: 2px;
+  }
+  .mobile-star {
+    color: #fc8507;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .mobile-rating-text {
+    color: var(--text-tertiary, #7d7c7c);
+    font-size: 12px;
+  }
+  .mobile-review-sep {
+    width: 1px;
+    height: 24px;
+    background: var(--stroke-border-light, #eeeeee);
+    margin: 0 4px;
+  }
+  .mobile-review-questions-block {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--text-tertiary, #7d7c7c);
+    font-size: 13px;
+    margin-left: 4px;
+  }
+  .mobile-q-count {
+    color: var(--text-primary, #333333);
+    font-weight: 700;
+  }
+  .mobile-q-icon {
+    font-size: 11px;
+    background: #eeeeee;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #7d7c7c;
+  }
+
+  /* Скрываем десктопные блоки покупки, бейджей и наличия */
+  .product-info .specification-summary,
+  .product-info .product-badges,
+  .product-info .purchase-row,
+  .desktop-availability {
+    display: none !important;
+  }
+
+  /* Мобильный блок «В наличии» (как на проде) */
+  .mobile-availability-card {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background-secondary, #ffffff);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: var(--effect-plate);
+    margin-top: 12px;
+  }
+  .mobile-avail-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mobile-avail-label {
+    font-size: 12px;
+    color: var(--text-tertiary, #7d7c7c);
+  }
+  .mobile-avail-store {
+    font-size: 14px;
+    color: var(--text-link, #0071bc);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .mobile-avail-store:hover {
+    text-decoration: underline;
+  }
+  .mobile-avail-icon {
+    flex-shrink: 0;
+  }
+
+  /* Мобильный блок описания товара (как на проде) */
+  .mobile-description-card {
+    display: block !important;
+    background: var(--background-secondary, #ffffff);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--effect-plate);
+    margin-top: 12px;
+  }
+  .mobile-desc-text {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text-primary, #333333);
+    margin: 0 0 8px;
+  }
+  .mobile-desc-text.is-collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mobile-desc-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-link, #0071bc);
+    font-size: 13px;
+    font-family: 'PT Sans', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .mobile-desc-toggle:hover {
+    text-decoration: underline;
+  }
+
+  /* Клиентские фото под карточкой */
+  .product-card .customer-photos {
+    margin: 16px 0 0;
+    gap: 8px;
+  }
+  .product-card .customer-photos > button {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Фиксированная нижняя панель покупки (как на проде) */
+  .mobile-purchase {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 16px;
+    background: var(--background-secondary, #ffffff);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 20;
+  }
+  .mobile-purchase > strong {
+    margin-right: auto;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary, #333333);
+    font-family: 'PT Sans', sans-serif;
+  }
+  .mobile-purchase > button:last-child {
+    min-width: 140px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .configurator {
+    padding: 20px 16px;
+  }
+  .ready-builds {
+    overflow-x: clip;
+  }
 }

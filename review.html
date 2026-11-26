@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Создание отзыва — прототип</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ Header · Desktop ============ -->
+<header class="header header--desktop">
+  <div class="container">
+    <div class="header__top">
+      <div class="header__links">
+        <button class="plain-link" type="button">Ru <img src="assets/imgCustomerServiceDropdownIcon.svg" alt="" width="16" height="16"></button>
+        <a class="plain-link plain-link--geo" href="#">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 14s4.5-3.9 4.5-7.5a4.5 4.5 0 1 0-9 0C3.5 10.1 8 14 8 14Z" stroke="#A7A5A5" stroke-width="1.2"/><circle cx="8" cy="6.5" r="1.6" stroke="#A7A5A5" stroke-width="1.2"/></svg>
+          <span>Первого отделения совхоза “Масло…</span>
+        </a>
+        <nav class="header__nav" aria-label="Служебная навигация">
+          <a href="#" class="plain-link">DNS Видео <i class="dot"></i></a>
+          <a href="#" class="plain-link">Доставка</a>
+          <a href="#" class="plain-link">Покупателям <img src="assets/imgCustomerServiceDropdownIcon.svg" alt="" width="16" height="16"></a>
+          <a href="#" class="plain-link">Юрлицам</a>
+          <a href="#" class="plain-link">DNS Клуб</a>
+          <a href="#" class="plain-link">Вакансии</a>
+          <a href="#" class="plain-link">Предложения брендов</a>
+        </nav>
+      </div>
+      <a class="plain-link" href="tel:88007707888">8-800-77-07-888</a>
+    </div>
+
+    <div class="header__bottom">
+      <div class="logo-block">
+        <span class="logo-block__logo"><img src="assets/imgCombinedShapeCopy3.svg" alt="DNS"></span>
+        <button class="catalog-btn" type="button">Каталог <img src="assets/imgDropdownIcon.svg" alt="" width="24" height="24"></button>
+      </div>
+      <label class="search">
+        <input type="search" placeholder="Поиск по сайту" aria-label="Поиск по сайту">
+        <img src="assets/imgActionSearch.svg" alt="" width="24" height="24">
+      </label>
+      <div class="header__icons">
+        <a class="hicon" href="#"><span class="hicon__ico"><img src="assets/imgCompareIcon.svg" alt="" width="24" height="24"><b class="badge">1</b></span><span>Сравнение</span></a>
+        <a class="hicon" href="#"><span class="hicon__ico"><img src="assets/imgWishlistIcon.svg" alt="" width="24" height="24"><b class="badge">15</b></span><span>Избранное</span></a>
+        <a class="hicon" href="#"><span class="hicon__ico"><img src="assets/imgCartIcon.svg" alt="" width="24" height="24"><b class="badge">1</b></span><strong>1 260 ₽</strong></a>
+        <a class="avatar" href="#" aria-label="Профиль">
+          <span class="avatar__pic">
+            <img class="avatar__base" src="assets/imgAvatar.svg" alt="">
+            <img class="avatar__sub" src="assets/imgSubtract.svg" alt="">
+            <img class="avatar__photo" src="assets/imgEllipse21.png" alt="" width="37" height="37">
+          </span>
+          <b class="badge">1</b>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Header · Mobile ============ -->
+<header class="header header--mobile">
+  <button class="icon-btn" type="button" aria-label="Назад">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4 6 10l6 6" stroke="#A7A5A5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <label class="m-search">
+    <img src="assets/mSearch.svg" alt="" width="18" height="18">
+    <input type="search" placeholder="Поиск по сайту" aria-label="Поиск по сайту">
+  </label>
+  <button class="icon-btn" type="button" aria-label="Чат">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h9A1.5 1.5 0 0 1 16 5.5v6a1.5 1.5 0 0 1-1.5 1.5H9l-3.5 3v-3H5.5A1.5 1.5 0 0 1 4 11.5v-6Z" stroke="#A7A5A5" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    <i class="notif-dot"></i>
+  </button>
+</header>
+
+<main class="page">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="#">Каталог</a><span class="sep" aria-hidden="true"></span>
+      <a href="#">Смартфоны, планшеты и фототехника</a><span class="sep" aria-hidden="true"></span>
+      <a href="#">Смартфоны и гаджеты</a><span class="sep" aria-hidden="true"></span>
+      <span class="breadcrumbs__current">Смартфоны</span>
+    </nav>
+
+    <h1 class="title" id="title">Мой отзыв о 6.43" Смартфон realme GT Master Edition 256 ГБ серый</h1>
+
+    <form class="review" id="review-form" novalidate>
+      <div class="review__main">
+
+        <!-- Мобильная подсказка с прогрессом -->
+        <div class="instructions">
+          <p>Заполните все поля, чтобы ваш отзыв был максимально полезен</p>
+          <div class="ring ring--sm" data-ring><svg viewBox="0 0 67 67" aria-hidden="true"><circle cx="33.5" cy="33.5" r="33.5" class="ring__bg"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__track"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__bar"/></svg><span class="ring__value">0%</span></div>
+        </div>
+
+        <!-- Срок использования -->
+        <div class="usage">
+          <button class="usage__btn" type="button" id="usage-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span>Я использую товар <span class="usage__value" id="usage-value">менее месяца</span></span>
+            <img src="assets/imgCustomerServiceDropdownIcon.svg" alt="" width="16" height="16">
+          </button>
+          <ul class="usage__menu" id="usage-menu" role="listbox" hidden>
+            <li role="option" aria-selected="true" tabindex="0">менее месяца</li>
+            <li role="option" tabindex="0">от 1 до 6 месяцев</li>
+            <li role="option" tabindex="0">от 6 месяцев до года</li>
+            <li role="option" tabindex="0">более года</li>
+          </ul>
+        </div>
+
+        <!-- Оценки -->
+        <div class="ratings" id="ratings">
+          <div class="rating-card" data-rating="overall"><div class="rating-card__head"><span>Общая оценка</span><span class="tag">+ 20%</span></div><div class="stars"></div></div>
+          <div class="rating-card is-locked" data-rating="camera"><div class="rating-card__head"><span>Камера</span><span class="tag">+ 20%</span></div><div class="stars"></div></div>
+          <div class="rating-card is-locked" data-rating="battery"><div class="rating-card__head"><span>Батарея</span><span class="tag">+ 20%</span></div><div class="stars"></div></div>
+          <div class="rating-card is-locked" data-rating="screen"><div class="rating-card__head"><span>Экран</span><span class="tag">+ 20%</span></div><div class="stars"></div></div>
+        </div>
+
+        <!-- Опыт использования -->
+        <section class="experience">
+          <div class="experience__head">
+            <h2>Опыт использования</h2>
+            <div class="hint">
+              <button class="hint__btn" type="button" id="hint-btn" aria-expanded="false">Что написать? <img src="assets/imgHelpIcon.svg" alt="" width="18" height="18"></button>
+              <div class="hint__pop" id="hint-pop" role="tooltip" hidden>
+                <b>Подсказка</b>
+                <ul>
+                  <li>Как давно и для чего вы пользуетесь товаром?</li>
+                  <li>Что понравилось, а что нет?</li>
+                  <li>Порекомендуете ли друзьям?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="fields">
+            <div class="field" data-field="pros">
+              <div class="field__labelrow">
+                <label class="field__label" for="pros">Достоинства</label>
+                <span class="tag tag--desktop">+ 10%</span>
+              </div>
+              <div class="field__box"><textarea id="pros" rows="1" aria-label="Достоинства"></textarea><img class="field__resize" src="assets/imgIcon.svg" alt="" width="16" height="16"></div>
+              <b class="pill pill--field">+10%</b>
+            </div>
+            <div class="field" data-field="cons">
+              <div class="field__labelrow">
+                <label class="field__label" for="cons">Недостатки</label>
+                <span class="tag tag--desktop">+ 10%</span>
+              </div>
+              <div class="field__box"><textarea id="cons" rows="1" aria-label="Недостатки"></textarea><img class="field__resize" src="assets/imgIcon.svg" alt="" width="16" height="16"></div>
+              <b class="pill pill--field">+10%</b>
+            </div>
+            <div class="field" data-field="comment">
+              <div class="field__labelrow">
+                <label class="field__label" for="comment">Комментарий</label>
+                <span class="tag tag--desktop">+ 10%</span>
+              </div>
+              <div class="field__box"><textarea id="comment" rows="1" aria-label="Комментарий"></textarea><img class="field__resize" src="assets/imgIcon.svg" alt="" width="16" height="16"></div>
+              <b class="pill pill--field">+10%</b>
+            </div>
+
+            <label class="check check--lg">
+              <input type="checkbox" id="mismatch">
+              <span class="check__box"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span>
+              <span class="check__text">Товар или комплектация не соответствует описанию на сайте</span>
+            </label>
+          </div>
+
+          <div class="media-list">
+            <!-- Фото -->
+            <div class="media" data-media="photo" data-max="5">
+              <div class="media__head"><h3>Фото</h3><span class="tag">+ 20%</span></div>
+              <label class="dropzone" tabindex="0">
+                <input type="file" accept="image/*" multiple hidden>
+                <span class="dropzone__title">Перетащите файлы или <span class="link">выберите на устройстве</span></span>
+                <span class="dropzone__desc">Описание (допустимый размер, количество файлов и т.п.)</span>
+              </label>
+              <label class="file-btn">
+                <input type="file" accept="image/*" multiple hidden>
+                <img src="assets/mActionAddImage.svg" alt="" width="20" height="20">
+                <span class="file-btn__text">Добавьте фото <span data-count>0/5</span></span>
+                <b class="pill pill--end">+20%</b>
+              </label>
+              <ul class="previews" aria-live="polite"></ul>
+            </div>
+            <!-- Видео -->
+            <div class="media" data-media="video" data-max="1">
+              <div class="media__head"><h3>Видео</h3><span class="tag">от 200</span></div>
+              <label class="dropzone dropzone--sm" tabindex="0">
+                <input type="file" accept="video/*" hidden>
+                <span class="dropzone__title">Перетащите файлы или <span class="link">выберите на устройстве</span></span>
+              </label>
+              <label class="file-btn">
+                <input type="file" accept="video/*" hidden>
+                <img src="assets/mDataVideo.svg" alt="" width="20" height="20">
+                <span class="file-btn__text">Добавьте видео</span>
+                <b class="pill pill--end">+30%</b>
+              </label>
+              <ul class="previews" aria-live="polite"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Согласие (мобильный макет) -->
+        <label class="check check--sm privacy">
+          <input type="checkbox" id="privacy">
+          <span class="check__box"><img src="assets/imgCheck.svg" alt="" width="14" height="14"></span>
+          <span class="check__text">Я даю согласие на обработку персональных данных в соответствии с <a href="#">Политикой</a>.</span>
+        </label>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
+        <div class="submit">
+          <button class="btn-primary" type="submit">Отправить</button>
+        </div>
+      </div>
+
+      <!-- Sidebar: бонусы -->
+      <aside class="bonus" id="bonus" aria-label="Прогресс заполнения">
+        <div class="bonus__head">
+          <div class="ring ring--lg" data-ring><svg viewBox="0 0 67 67" aria-hidden="true"><circle cx="33.5" cy="33.5" r="33.5" class="ring__bg"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__track"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__bar"/></svg><span class="ring__value">0%</span></div>
+          <p>Заполните все поля, чтобы ваш отзыв был максимально полезен.</p>
+        </div>
+        <ul class="bonus__list">
+          <li data-item="rating"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Проставьте оценки</span><b>+20%</b></li>
+          <li data-item="pros"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Опишите достоинства</span><b>+10%</b></li>
+          <li data-item="cons"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Опишите недостатки</span><b>+10%</b></li>
+          <li data-item="comment"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Добавьте комментарий</span><b>+10%</b></li>
+          <li data-item="photo"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Добавьте фото</span><b>+20%</b></li>
+          <li data-item="video"><span class="dotcheck"><img src="assets/imgCheck.svg" alt="" width="24" height="24"></span><span>Добавьте видео</span><b>+30%</b></li>
+        </ul>
+      </aside>
+
+      <!-- Экран после отправки -->
+      <div class="done" id="done" hidden>
+        <div class="ring ring--lg"><svg viewBox="0 0 67 67" aria-hidden="true"><circle cx="33.5" cy="33.5" r="33.5" class="ring__bg"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__track"/><circle cx="33.5" cy="33.5" r="31.3225" class="ring__bar" style="stroke-dasharray:196.8 196.8"/></svg><span class="ring__value" id="done-value">100%</span></div>
+        <h2>Спасибо за отзыв!</h2>
+        <p id="done-text">После модерации он появится на странице товара.</p>
+        <button class="btn-primary" type="button" id="again">Написать ещё один</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__main">
+      <div class="fcol fcol--1">
+        <div class="flogo"><img src="assets/imgVector.svg" alt="DNS" width="66" height="17"></div>
+        <div class="fblock">
+          <h4>Компания</h4><hr>
+          <ul class="flinks">
+            <li><a href="#">О компании</a></li><li><a href="#">Новости</a></li><li><a href="#">Партнерам</a></li><li><a href="#">Вакансии</a></li>
+            <li><a href="#">Политика конфиденциальности</a></li><li><a href="#">Персональные данные</a></li><li><a href="#">Правила продаж</a></li>
+            <li><a href="#">Правила применения рекомендательных технологий</a></li><li><a href="#">Сервисные центры</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fcol fcol--2">
+        <div class="flogo flogo--group"><img src="assets/imgGroup.svg" alt="DNS Клуб" width="111" height="17"><img src="assets/imgTech.svg" alt="DNS Технологии" width="261" height="17"></div>
+        <div class="fblock">
+          <h4>Покупателям</h4><hr>
+          <div class="flinks-2col">
+            <ul class="flinks">
+              <li><a href="#">Как оформить заказ</a></li><li><a href="#">Способы оплаты</a></li><li><a href="#">Кредиты</a></li><li><a href="#">Доставка</a></li>
+              <li><a href="#">Статус заказа</a></li><li><a href="#">Обмен, возврат, гарантия</a></li><li><a href="#">Проверка статуса ремонта</a></li>
+            </ul>
+            <ul class="flinks">
+              <li><a href="#">Юридическим лицам</a></li><li><a href="#">Проверка счёта</a></li><li><a href="#">Корпоративные отделы</a></li><li><a href="#">Подарочные карты</a></li>
+              <li><a href="#">Бонусная программа</a></li><li><a href="#">Помощь</a></li><li><a href="#">Обратная связь</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="fcol fcol--3">
+        <div class="flogo"><img src="assets/imgDnsGroup.svg" alt="DNS Group" width="131" height="17"></div>
+        <div class="fcontacts">
+          <div class="fblock">
+            <h4>Оставайтесь на связи</h4><hr>
+            <div class="fcontacts__info">
+              <strong>8-800-77-07-999 (c 03:00 до 22:00)</strong>
+              <span>Адреса магазинов в г. Владивосток</span>
+            </div>
+          </div>
+
+          <div class="frow">
+            <div class="social"><img src="assets/imgMediaVkStateDefault.svg" alt="VK" width="38" height="38"><img src="assets/imgMediaYoutubeStateDefault.svg" alt="YouTube" width="38" height="38"></div>
+            <div class="payments">
+              <!-- СБП -->
+              <div class="sbp" role="img" aria-label="СБП">
+                <span class="abs" style="inset:36.91% 0 38.31% 85.38%"><img src="assets/imgGroup1.svg" alt=""></span>
+                <span class="abs" style="inset:28% 16.96% 37.31% 66.91%"><img src="assets/imgGroup2.svg" alt=""></span>
+                <span class="abs" style="inset:36.26% 34.89% 37.52% 51.66%"><img src="assets/imgGroup3.svg" alt=""></span>
+                <div class="rotwrap" style="inset:21.67% 86.37% 22.24% -13.4%"><div class="rot" style="--h:hypot(49.9795cqw,-23.9463cqh);--w:hypot(50.0205cqw,76.0537cqh);--r:-119.31deg"><img src="assets/imgGroup4.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:18.13% 54.27% 50.53% 22.74%"><div class="rot" style="--h:hypot(-15.427cqw,-32.8212cqh);--w:hypot(84.573cqw,-67.1788cqh);--r:148.57deg"><img src="assets/imgGroup5.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:0.01% 73.72% 49.96% 19.4%"><div class="rot" style="--h:hypot(99.0961cqw,-0.0532278cqh);--w:hypot(0.903947cqw,99.9468cqh);--r:-90.13deg"><img src="assets/imgGroup6.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:0 54.27% 71.55% 19.45%"><div class="rot" style="--h:100cqh;--w:100cqw;--r:0deg"><img src="assets/imgGroup7.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:56.79% 73.72% 0.6% 19.45%"><div class="rot" style="--h:100cqw;--w:100cqh;--r:90deg"><img src="assets/imgGroup8.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:21.64% 54.29% 18.68% -3.44%"><div class="rot" style="--h:hypot(-7.24394cqw,17.278cqh);--w:hypot(-92.7561cqw,-82.722cqh);--r:31.44deg"><img src="assets/imgGroup9.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:57.96% 54.29% -12.45% 19.45%"><div class="rot" style="--h:hypot(-49.9158cqw,-23.9428cqh);--w:hypot(50.0842cqw,-76.0572cqh);--r:119.34deg"><img src="assets/imgGroup10.svg" alt=""></div></div>
+                <div class="rotwrap" style="inset:46.52% 80.49% 22.24% -3.42%"><div class="rot" style="--h:hypot(-15.4566cqw,-32.8912cqh);--w:hypot(84.5434cqw,-67.1088cqh);--r:148.59deg"><img src="assets/imgGroup11.svg" alt=""></div></div>
+              </div>
+              <img class="akit" src="assets/imgLogo.svg" alt="" width="36" height="38">
+            </div>
+          </div>
+
+          <div class="app-qr">
+            <h5>DNS всегда под рукой</h5>
+            <div class="app-qr__content">
+              <div class="qr"><img src="assets/imgImage194.png" alt="QR-код" width="74" height="73"></div>
+              <div class="stores">
+                <!-- Google Play -->
+                <div class="store store--gp" role="img" aria-label="Google Play">
+                  <div class="gp-a" style="mask-image:url(assets/imgGroup12.svg),url(assets/imgGroup12.svg)"><img src="assets/imgGroup13.svg" alt=""></div>
+                  <div class="gp-b" style="mask-image:url(assets/imgGroup12.svg)"><img src="assets/imgGroup14.svg" alt=""></div>
+                </div>
+                <img class="store" src="assets/imgAppStore.svg" alt="App Store" width="102" height="30">
+                <img class="store" src="assets/imgAppGallery.svg" alt="AppGallery" width="102" height="31">
+                <div class="store store--rs" role="img" aria-label="RuStore">
+                  <span class="abs" style="inset:-0.4% 0 0.4% 0"><img src="assets/imgVector1.svg" alt=""></span>
+                  <span class="abs" style="inset:15.7% 9.02% 15.3% 9.2%"><img src="assets/imgRustoreLogoIntro21.svg" alt=""></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subscribe">
+            <p>Следите за новинками и акциями:</p>
+            <label class="subscribe__field"><input type="email" placeholder="Введите e-mail и подпишитесь" aria-label="E-mail"><img src="assets/imgArrowElbowLeft.svg" alt="" width="20" height="20"></label>
+            <small>Подписываясь, вы соглашаетесь с условиями <a href="#">политики конфедициальности</a> и <a href="#">обработки персональных данных</a></small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="footer__divider">
+    <div class="footer__bottom">
+      <p>Нашли ошибку на сайте? Выделите текст с ошибкой, нажмите Ctrl+Enter и напишите нам</p>
+      <p>© 2002—2025 Компания DNS. Администрация Сайта не несет ответственности за размещаемые Пользователями материалы (в т.ч. информацию и изображения), их содержание и качество.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

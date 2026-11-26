@@ -1,12 +1,80 @@
-export const productUrl = 'https://www.dns-shop.ru/product/c92789e28131d582/blok-pitania-deepcool-pl750d-r-pl750d-fc0b-wdeu-v2-cernyj/'
-export const productName = 'Блок питания DEEPCOOL PL750D [R-PL750D-FC0B-WDEU-V2] черный'
-// Demo prices and configurations for the visual prototype. No stock or checkout API is connected.
+export const productUrl = 'https://www.dns-shop.ru/product/5079498/blok-pitania-asus-rog-thor-1600w-titanium-iii-90ye00v1-b0na00-cernyj/'
+export const productName = 'Блок питания ASUS ROG THOR 1600W Titanium III [90YE00V1-B0NA00] черный'
+export const productCode = '5079498'
+export const basePrice = 60999
+export const baseCredit = 'от 5 946 Р/ мес.'
+
+// Доступные варианты уценки товара по макету из Figma (node 31453:81957 / 31424:76014)
+export const discountVariants = [
+  {
+    id: 1,
+    price: 29000,
+    oldPrice: 60999,
+    warranty: 'Гарантия 1 мес.',
+    tags: [
+      { text: 'После ремонта', hasInfo: true },
+      { text: 'б/у', hasInfo: false }
+    ],
+    sellerWarranty: '1 мес.',
+    type: 'б/у',
+    condition: 'б/у',
+    appearance: 'потертости небольшие (по всему товару), загрязнения небольшие (по всему товару)',
+    package: 'полный комплект',
+    repair: 'замена детали устройства (плата/шлейф (расширение)), замена детали устройства (электронагревательный элемент/прибор)',
+    serialNumber: 'VZ8-62003293440',
+    store: 'ТРЦ «Черёмушки»',
+    delivery: 'завтра',
+    credit: 'от 2 835 ₽/ мес.'
+  },
+  {
+    id: 2,
+    price: 45000,
+    oldPrice: 60999,
+    warranty: 'Гарантия 12 мес.',
+    tags: [
+      { text: 'Неполный комплект', hasInfo: true },
+      { text: 'Как новый', hasInfo: false }
+    ],
+    sellerWarranty: '12 мес.',
+    type: 'новый',
+    condition: 'Новый',
+    appearance: 'идеальное состояние, следов эксплуатации нет',
+    missingPackage: 'дополнительный кабель питания',
+    package: 'неполный комплект',
+    repair: 'без ремонта (новый товар со склада)',
+    serialNumber: 'VZ8-62003294500',
+    store: 'ТЦ «Авиапарк»',
+    delivery: 'сегодня от 2 часов',
+    credit: 'от 4 398 ₽/ мес.'
+  }
+]
+
+// Демо: в реальной карточке вариантов может быть до 170, в табах показываем до 7
+const demoConditions = ['б/у', 'Новый']
+const demoWarranties = ['1 мес.', '3 мес.', '6 мес.', '12 мес.']
+const baseDiscountVariants = discountVariants.slice()
+for (let i = 3; i <= 24; i++) {
+  const condition = demoConditions[i % demoConditions.length]
+  const sellerWarranty = demoWarranties[i % demoWarranties.length]
+  discountVariants.push({
+    ...baseDiscountVariants[i % 2],
+    id: i,
+    price: 25000 + i * 1250,
+    condition,
+    type: condition,
+    sellerWarranty,
+    serialNumber: `VZ8-6200${3293000 + i * 17}`,
+    credit: `от ${(2400 + i * 120).toLocaleString('ru-RU')} ₽/ мес.`
+  })
+}
+
+// Demo configurations
 export const builds = [
- {id:1,price:114999,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060',ram:'16 ГБ',ssd:'1 ТБ',image:'case-msi.jpg',case:'MSI MAG FORGE M100R',board:'MSI PRO B650M-P',count:8,url:'https://www.dns-shop.ru/user-pc/configuration/dca9790391e09983/'},
- {id:2,price:116499,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060',ram:'32 ГБ',ssd:'1 ТБ',image:'case-white.jpg',case:'ARDOR GAMING Mystic CM1',board:'ASRock B650M-HDV/M.2',count:9,url:'https://www.dns-shop.ru/user-pc/configuration/c35e3e05df0be1e8/'},
- {id:3,price:117499,cpu:'AMD Ryzen 7 7800X3D',gpu:'GeForce RTX 5060',ram:'32 ГБ',ssd:'1 ТБ',image:'case-defender.jpg',case:'Defender HyperHub',board:'ASRock B650M Pro RS WiFi',count:8,url:'https://www.dns-shop.ru/user-pc/configuration/d4eb74680876431b/'},
- {id:4,price:119999,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060 Ti',ram:'32 ГБ',ssd:'1 ТБ',image:'case-white.jpg',case:'ARDOR GAMING Mystic CM1',board:'ASRock B650M-HDV/M.2',count:9},
- {id:5,price:122499,cpu:'AMD Ryzen 7 7700',gpu:'GeForce RTX 5060 Ti',ram:'32 ГБ',ssd:'1 ТБ',image:'case-msi.jpg',case:'MSI MAG FORGE M100R',board:'MSI PRO B650M-P',count:8},
- {id:6,price:124999,cpu:'AMD Ryzen 7 7800X3D',gpu:'GeForce RTX 5070',ram:'32 ГБ',ssd:'2 ТБ',image:'case-defender.jpg',case:'Defender HyperHub',board:'ASRock B650M Pro RS WiFi',count:9},
+  {id:1,price:114999,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060',ram:'16 ГБ',ssd:'1 ТБ',image:'case-msi.jpg',case:'MSI MAG FORGE M100R',board:'MSI PRO B650M-P',count:8,url:'https://www.dns-shop.ru/user-pc/configuration/dca9790391e09983/'},
+  {id:2,price:116499,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060',ram:'32 ГБ',ssd:'1 ТБ',image:'case-white.jpg',case:'ARDOR GAMING Mystic CM1',board:'ASRock B650M-HDV/M.2',count:9,url:'https://www.dns-shop.ru/user-pc/configuration/c35e3e05df0be1e8/'},
+  {id:3,price:117499,cpu:'AMD Ryzen 7 7800X3D',gpu:'GeForce RTX 5060',ram:'32 ГБ',ssd:'1 ТБ',image:'case-defender.jpg',case:'Defender HyperHub',board:'ASRock B650M Pro RS WiFi',count:8,url:'https://www.dns-shop.ru/user-pc/configuration/d4eb74680876431b/'},
+  {id:4,price:119999,cpu:'AMD Ryzen 5 7500F',gpu:'GeForce RTX 5060 Ti',ram:'32 ГБ',ssd:'1 ТБ',image:'case-white.jpg',case:'ARDOR GAMING Mystic CM1',board:'ASRock B650M-HDV/M.2',count:9},
+  {id:5,price:122499,cpu:'AMD Ryzen 7 7700',gpu:'GeForce RTX 5060 Ti',ram:'32 ГБ',ssd:'1 ТБ',image:'case-msi.jpg',case:'MSI MAG FORGE M100R',board:'MSI PRO B650M-P',count:8},
+  {id:6,price:124999,cpu:'AMD Ryzen 7 7800X3D',gpu:'GeForce RTX 5070',ram:'32 ГБ',ssd:'2 ТБ',image:'case-defender.jpg',case:'Defender HyperHub',board:'ASRock B650M Pro RS WiFi',count:9},
 ]
 export const money = value => new Intl.NumberFormat('ru-RU').format(value) + ' ₽'
