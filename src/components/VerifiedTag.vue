@@ -26,9 +26,8 @@ defineEmits(['open'])
       <path d="M5 8.2l2 2 4-4.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <svg v-else class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="6.25" stroke="#c98a2b" stroke-width="1.5"/>
-      <path d="M8 5v3.5" stroke="#c98a2b" stroke-width="1.5" stroke-linecap="round"/>
-      <circle cx="8" cy="10.9" r="0.9" fill="#c98a2b"/>
+      <path d="M7.134 1.5a1 1 0 0 1 1.732 0l6.062 10.5A1 1 0 0 1 14.062 13.5H1.938a1 1 0 0 1-.866-1.5L7.134 1.5z" fill="#f59e0b"/>
+      <path d="M8 5.5v3.5M8 11.25v.25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
   </button>
   <BaseUiTooltip v-else tag="span" position="top" class="verified-tooltip-trigger">
@@ -46,9 +45,8 @@ defineEmits(['open'])
         <path d="M5 8.2l2 2 4-4.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <svg v-else class="verified-icon" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <circle cx="8" cy="8" r="6.25" stroke="#c98a2b" stroke-width="1.5"/>
-        <path d="M8 5v3.5" stroke="#c98a2b" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="8" cy="10.9" r="0.9" fill="#c98a2b"/>
+        <path d="M7.134 1.5a1 1 0 0 1 1.732 0l6.062 10.5A1 1 0 0 1 14.062 13.5H1.938a1 1 0 0 1-.866-1.5L7.134 1.5z" fill="#f59e0b"/>
+        <path d="M8 5.5v3.5M8 11.25v.25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </span>
     <template #content>

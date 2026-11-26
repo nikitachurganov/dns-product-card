@@ -185,6 +185,9 @@ const labelSplit = label => Math.max(label.lastIndexOf(' '), label.lastIndexOf('
 const labelHead = label => label.slice(0, labelSplit(label))
 const labelTail = label => label.slice(labelSplit(label))
 
+// Неразрывный пробел после числа, чтобы «500 мм» не разрывалось при переносе
+const glueUnits = value => String(value).replace(/(\d) /g, '$1\u00a0')
+
 const verdict = (value, verified) => {
   if (!verified) return null
   if (verified === value) return { same: true }
@@ -348,7 +351,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                   v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
                   class="spec-declared-line"
                 >
-                  {{ row.verified }} (проверено в DNS)
+                  Проверено в DNS: {{ glueUnits(row.verified) }}
                 </div>
               </div>
             </dd>
@@ -413,7 +416,7 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                       v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
                       class="spec-declared-line"
                     >
-                      {{ row.verified }} (проверено в DNS)
+                      Проверено в DNS: {{ glueUnits(row.verified) }}
                     </div>
                   </div>
                 </dd>
