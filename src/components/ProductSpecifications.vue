@@ -342,16 +342,15 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                     :mobile="isMobile"
                     @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
                   />
-                  <span v-if="verdict(row.value, row.verified)?.same" class="spec-verified-note">(проверено в DNS)</span>
 
                 </div>
 
-                <!-- Строка 2 (при расхождении): значение, проверенное в DNS -->
+                <!-- Строка 2: «Проверено в DNS» (+ значение, если не совпало с заявленным) -->
                 <div
-                  v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
+                  v-if="verdict(row.value, row.verified)"
                   class="spec-declared-line"
                 >
-                  Проверено в DNS: {{ glueUnits(row.verified) }}
+                  {{ verdict(row.value, row.verified).same ? 'Проверено в DNS' : 'Проверено в DNS: ' + glueUnits(row.verified) }}
                 </div>
               </div>
             </dd>
@@ -407,16 +406,15 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                         :mobile="isMobile"
                         @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
                       />
-                      <span v-if="verdict(row.value, row.verified)?.same" class="spec-verified-note">(проверено в DNS)</span>
 
                     </div>
 
-                    <!-- Строка 2 (при расхождении): значение, проверенное в DNS -->
+                    <!-- Строка 2: «Проверено в DNS» (+ значение, если не совпало с заявленным) -->
                     <div
-                      v-if="verdict(row.value, row.verified) && !verdict(row.value, row.verified).same"
+                      v-if="verdict(row.value, row.verified)"
                       class="spec-declared-line"
                     >
-                      Проверено в DNS: {{ glueUnits(row.verified) }}
+                      {{ verdict(row.value, row.verified).same ? 'Проверено в DNS' : 'Проверено в DNS: ' + glueUnits(row.verified) }}
                     </div>
                   </div>
                 </dd>
@@ -808,11 +806,9 @@ dd {
   min-width: 0;
   line-height: 1.4;
 }
+/* Строчный поток: длинное значение переносится по словам, иконки стоят в строке с текстом */
 .spec-value-line {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 0 6px;
+  display: block;
   line-height: 1.4;
   min-width: 0;
 }
@@ -826,9 +822,8 @@ dd {
   height: 20px;
   color: var(--text-tertiary, #8c8c8c);
   text-decoration: none;
-  flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 1px;
+  vertical-align: -4px;
+  margin-right: 6px;
   transition: color 0.15s ease;
   cursor: pointer;
 }
@@ -854,12 +849,9 @@ dd {
 .spec-text-value {
   color: var(--text-primary);
 }
-.spec-verified-note {
-  color: var(--text-tertiary);
-  white-space: nowrap;
-}
 .spec-verified-tag {
-  margin-top: 1px;
+  margin-left: 6px;
+  vertical-align: -4px;
 }
 
 /* Вторая строка: заявленное значение */
