@@ -1,15 +1,21 @@
 <script setup>
 import { IconCircleInfo } from '@dns-modules/font-icon'
+import { BaseUiTooltip } from '@dns-modules/base-ui-tooltip'
+import '@dns-modules/base-ui-tooltip/style.css'
 
-// Иконка у названия характеристики в варианте «Иконка в инфо»:
+// Иконка ⓘ у названия характеристики (по нажатию — шторка/модалка с пояснением):
 //  - 'info'     — серая ⓘ, только пояснение
-//  - 'matched'  — зеленая ⓘ, проверено в DNS, совпало с заявленным
-//  - 'warning'  — желтый треугольник, проверено в DNS, не совпало
+//  - 'matched'  — серая ⓘ, проверено в DNS, совпало с заявленным
+//  - 'warning'  — желтая ⓘ, проверено в DNS, не совпало
+// У проверенных характеристик при наведении — тултип из дизайн-системы «Проверено в DNS»
+// (только на устройствах с hover; на тач-экранах нажатие сразу открывает шторку).
 defineProps({
   state: { type: String, default: 'info' },
   label: { type: String, default: '' },
 })
 defineEmits(['open'])
+
+const canHover = window.matchMedia('(hover: hover)').matches
 
 const titles = {
   info: 'Пояснение к характеристике',
@@ -19,23 +25,49 @@ const titles = {
 </script>
 
 <template>
+  <BaseUiTooltip v-if="state !== 'info' && canHover" tag="span" position="top" class="spec-info-tooltip">
+    <button
+      type="button"
+      class="spec-info-icon"
+      :class="`is-${state}`"
+      :aria-label="`${label}: ${titles[state]}`"
+      @click="$emit('open')"
+    >
+      <IconCircleInfo aria-hidden="true" />
+    </button>
+    <template #content>
+      <div class="spec-info-tooltip-text">Проверено в DNS</div>
+    </template>
+  </BaseUiTooltip>
   <button
+    v-else
     type="button"
     class="spec-info-icon"
     :class="`is-${state}`"
-    :title="titles[state]"
     :aria-label="`${label}: ${titles[state]}`"
     @click="$emit('open')"
   >
-    <svg v-if="state === 'warning'" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M7.134 1.5a1 1 0 0 1 1.732 0l6.062 10.5A1 1 0 0 1 14.062 13.5H1.938a1 1 0 0 1-.866-1.5L7.134 1.5z" fill="#f59e0b"/>
-      <path d="M8 5.5v3.5M8 11.25v.25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-    <IconCircleInfo v-else aria-hidden="true" />
+    <IconCircleInfo aria-hidden="true" />
   </button>
 </template>
 
 <style scoped>
+.spec-info-tooltip {
+  display: inline-flex;
+  vertical-align: -4px;
+  margin-left: 4px;
+}
+.spec-info-tooltip .spec-info-icon {
+  margin-left: 0;
+  vertical-align: top;
+}
+.spec-info-tooltip-text {
+  font-size: 12px;
+  line-height: 1.3;
+  color: #fff;
+  white-space: nowrap;
+  padding: 2px 4px;
+}
 .spec-info-icon {
   display: inline-flex;
   align-items: center;
@@ -55,10 +87,7 @@ const titles = {
 .spec-info-icon:hover {
   opacity: 0.8;
 }
-.spec-info-icon.is-matched {
-  color: #2e9e4f;
-}
-.spec-info-icon svg {
-  display: block;
+.spec-info-icon.is-warning {
+  color: #f59e0b;
 }
 </style>

@@ -16,10 +16,7 @@ import '@dns-modules/expansion/style.css'
 import { BottomSheet } from '@dns-modules/bottom-sheet'
 import '@dns-modules/bottom-sheet/style.css'
 import { productUrl } from '../data'
-import VerifiedTag from './VerifiedTag.vue'
 import SpecInfoIcon from './SpecInfoIcon.vue'
-import SpecsVariantSwitch from './SpecsVariantSwitch.vue'
-import { specsVariant } from '../specsVariant'
 
 const characteristicsUrl = productUrl.replace('/product/', '/product/characteristics/')
 const filesUrl = 'https://www.dns-shop.ru/product/driver/5117a7c5fa5fd763/blok-pitania-deepcool-pf750-r-pf750d-ha0b-eu-cernyj/'
@@ -155,7 +152,7 @@ const openVerifiedDetails = (label, value, verified, diffText = '', sign = 'minu
   openDetails({ label, value, verified, diffText, sign })
 }
 
-// Вариант «Иконка в инфо»: пояснения к характеристикам для шторки/модалки
+// Пояснения к характеристикам для шторки/модалки по иконке ⓘ
 const hints = {
   'Мощность': 'Максимальная мощность, которую блок питания может длительно отдавать всем компонентам компьютера. В лаборатории DNS измеряется под нагрузкой на стенде.',
   'Мощность (номинал)': 'Максимальная мощность, которую блок питания может длительно отдавать всем компонентам компьютера. В лаборатории DNS измеряется под нагрузкой на стенде.',
@@ -168,7 +165,7 @@ const hints = {
 }
 const rowHint = row => hints[row.label] || row.modal?.text || ''
 
-// Иконка у названия в варианте «Иконка в инфо»: желтый треугольник / зеленая ⓘ / серая ⓘ
+// Иконка ⓘ у названия: 'warning' (желтая) — не совпало с проверкой DNS, 'matched' / 'info' — серая
 const infoIconState = row => {
   const result = verdict(row.value, row.verified)
   if (!result) return row.info ? 'info' : null
@@ -339,16 +336,14 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         <dl v-for="(column, index) in summaryColumns" :key="index">
           <div v-for="row in column" :key="row.label" class="specification-row">
             <dt>
-              <!-- Вариант «Иконка в инфо»: иконка проверки DNS заменяет ⓘ и открывает шторку с пояснением -->
-              <span v-if="specsVariant === 'info' && infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
-              <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
-              <span v-else-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+              <!-- Иконка ⓘ у названия (склеена с последним словом): желтая — значение не совпало с проверкой DNS, серая — пояснение / совпало. По нажатию — шторка -->
+              <span v-if="infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
               <span v-else>{{ row.label }}</span>
               <i aria-hidden="true" />
             </dt>
             <dd>
               <div class="spec-dd-wrap">
-                <!-- Строка 1: [воронка?] [заявленное значение] [иконка ⚠️ / ⓘ с ховером] -->
+                <!-- Строка 1: [воронка?] [заявленное значение] -->
                 <div class="spec-value-line">
                   <a
                     v-if="row.filter"
@@ -370,18 +365,6 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                   <span v-else class="spec-text-value">
                     {{ row.value }}
                   </span>
-                  <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
-                  <VerifiedTag
-                    v-if="verdict(row.value, row.verified) && specsVariant !== 'info'"
-                    class="spec-verified-tag"
-                    :label="row.label"
-                    :declared="row.value"
-                    :verified="row.verified"
-                    :matched="verdict(row.value, row.verified).same"
-                    :mobile="isMobile"
-                    @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                  />
-
                 </div>
 
                 <!-- Строка 2: «Проверено в DNS» (+ значение, если не совпало с заявленным) -->
@@ -405,16 +388,14 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
             <dl v-for="(column, index) in group.columns" :key="index">
               <div v-for="row in column" :key="row.label" class="specification-row">
                 <dt>
-                  <!-- Вариант «Иконка в инфо»: иконка проверки DNS заменяет ⓘ и открывает шторку с пояснением -->
-                  <span v-if="specsVariant === 'info' && infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
-                  <!-- Иконка ⓘ склеена с последним словом и при переносе уходит вместе с ним -->
-                  <span v-else-if="row.info">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<IconCircleInfo :title="row.label" aria-hidden="true" /></span></span>
+                  <!-- Иконка ⓘ у названия (склеена с последним словом): желтая — значение не совпало с проверкой DNS, серая — пояснение / совпало. По нажатию — шторка -->
+                  <span v-if="infoIconState(row)">{{ labelHead(row.label) }}<span class="spec-label-tail">{{ labelTail(row.label) }}<SpecInfoIcon :state="infoIconState(row)" :label="row.label" @open="openSpecDetails(row)" /></span></span>
                   <span v-else>{{ row.label }}</span>
                   <i aria-hidden="true" />
                 </dt>
                 <dd>
                   <div class="spec-dd-wrap">
-                    <!-- Строка 1: [воронка?] [заявленное значение] [иконка ⚠️ / ⓘ с ховером] -->
+                    <!-- Строка 1: [воронка?] [заявленное значение] -->
                     <div class="spec-value-line">
                       <a
                         v-if="row.filter"
@@ -436,18 +417,6 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
                       <span v-else class="spec-text-value">
                         {{ row.value }}
                       </span>
-                      <!-- Результат лабораторной проверки DNS: зеленая галочка (совпало) / желтый треугольник (расхождение) -->
-                      <VerifiedTag
-                        v-if="verdict(row.value, row.verified) && specsVariant !== 'info'"
-                        class="spec-verified-tag"
-                        :label="row.label"
-                        :declared="row.value"
-                        :verified="row.verified"
-                        :matched="verdict(row.value, row.verified).same"
-                        :mobile="isMobile"
-                        @open="openVerifiedDetails(row.label, row.value, row.verified, verdict(row.value, row.verified).diffText, verdict(row.value, row.verified).sign)"
-                      />
-
                     </div>
 
                     <!-- Строка 2: «Проверено в DNS» (+ значение, если не совпало с заявленным) -->
@@ -548,11 +517,6 @@ const visibleGroups = computed(() => specificationsExpanded.value ? groups : gro
         </div>
       </dl>
     </BottomSheet>
-
-    <!-- Плавающий переключатель вариантов прототипа (ссылка на вариант: ?specs=info) -->
-    <Teleport to="body">
-      <SpecsVariantSwitch />
-    </Teleport>
   </section>
 </template>
 
@@ -896,10 +860,6 @@ dd {
 
 .spec-text-value {
   color: var(--text-primary);
-}
-.spec-verified-tag {
-  margin-left: 6px;
-  vertical-align: -4px;
 }
 
 /* Вторая строка: заявленное значение */
